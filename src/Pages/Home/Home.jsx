@@ -1,9 +1,16 @@
 import React from 'react';
+import Slider from './Slider';
+import TopFoods from './TopFoods';
+import WhyChooseUs from './WhyChooseUs';
+import CustomerReviews from './CustomerReviews';
 
 const Home = () => {
     return (
         <div>
-            this is the home page
+            <Slider />
+            <TopFoods />
+            <WhyChooseUs />
+            <CustomerReviews />
         </div>
     );
 };

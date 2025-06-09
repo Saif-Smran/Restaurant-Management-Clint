@@ -8,10 +8,12 @@ import {
   FaBox,
   FaSignOutAlt,
   FaSignInAlt,
+  FaUserCog
 } from 'react-icons/fa';
 import { AuthContext } from '../Provider/AuthProvider';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../assets/Logo.png';
+import axios from 'axios';
 
 const navbarLinks = [
   { to: '/', label: 'Home', Icon: HiHome },
@@ -23,60 +25,66 @@ export default function Navbar() {
   const { user, Logout, loading } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const [userData, setUserData] = useState(null);
+  const dropdownRef = useRef();
+
+  const fetchUserData = async (email) => {
+    try {
+      const token = await user?.getIdToken();
+      const { data } = await axios.get(`http://localhost:3000/users/${email}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return data;
+    } catch (err) {
+      console.error('Error fetching user data:', err);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    if (user?.email) {
+      fetchUserData(user.email).then(setUserData);
+    } else {
+      setUserData(null);
+    }
+  }, [user]);
 
   // Close dropdown on outside click
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setDropdownOpen(false);
       }
-    }
-    if (dropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [dropdownOpen]);
+  }, []);
 
   const handleLogout = async () => {
     try {
       await Logout();
       setDropdownOpen(false);
       setMobileMenuOpen(false);
-    } catch (error) {
-      console.error('Logout failed:', error);
+    } catch (err) {
+      console.error('Logout failed:', err);
     }
   };
 
-  const dropdownVariants = {
-    hidden: { opacity: 0, y: -10, pointerEvents: 'none' },
-    visible: { opacity: 1, y: 0, pointerEvents: 'auto' },
-  };
-
-  const mobileMenuVariants = {
-    hidden: { x: '100%' },
-    visible: { x: 0 },
-  };
-
-  // NavLink active class helper
   const navLinkClass = ({ isActive }) =>
-    `flex items-center gap-1 transition-colors ${
-      isActive ? 'text-primary font-semibold' : 'text-gray-700 hover:text-primary'
+    `flex items-center gap-1 transition-colors ${isActive ? 'text-primary font-semibold' : 'text-gray-700 hover:text-primary'
     }`;
 
   return (
     <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center sticky top-0 z-50">
       {/* Logo */}
-      <NavLink
-        to="/"
-        className="flex items-center gap-2 text-2xl font-extrabold text-primary hover:text-primary-dark transition-colors"
-        onClick={() => setMobileMenuOpen(false)}
-      >
-        <img src={Logo} alt="RestoEase Logo" className="w-10 h-10" />
+      <Link to="/" className="flex items-center gap-2 text-2xl font-extrabold text-primary">
+        <img src={Logo} alt="Logo" className="w-10 h-10" />
         RestoEase
-      </NavLink>
+      </Link>
 
-      {/* Desktop Nav Links */}
+      {/* Desktop nav */}
       <div className="hidden md:flex items-center space-x-8 font-medium">
         {navbarLinks.map(({ to, label, Icon }) => (
           <NavLink key={to} to={to} className={navLinkClass}>
@@ -86,91 +94,75 @@ export default function Navbar() {
         ))}
       </div>
 
-      {/* Hamburger Menu Button (Mobile) */}
+      {/* Hamburger (Mobile) */}
       <button
-        onClick={() => setMobileMenuOpen((prev) => !prev)}
-        className="md:hidden text-primary focus:outline-none focus:ring-2 focus:ring-primary rounded"
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="md:hidden text-primary"
         aria-label="Toggle mobile menu"
-        aria-expanded={mobileMenuOpen}
       >
         {mobileMenuOpen ? <HiX size={28} /> : <HiOutlineMenu size={28} />}
       </button>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            variants={mobileMenuVariants}
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
             transition={{ type: 'tween' }}
-            className="fixed top-0 right-0 w-64 h-full bg-white shadow-lg border-l border-gray-200 z-50 flex flex-col p-6 space-y-6"
+            className="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 flex flex-col p-6 space-y-6"
           >
-            <nav className="flex flex-col space-y-4 font-medium">
-              {navbarLinks.map(({ to, label, Icon }) => (
-                <NavLink
-                  key={to}
-                  to={to}
-                  className={({ isActive }) =>
-                    `flex items-center gap-2 ${
-                      isActive ? 'text-primary font-semibold' : 'text-gray-700 hover:text-primary'
-                    }`
-                  }
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <Icon size={18} />
-                  {label}
-                </NavLink>
-              ))}
-            </nav>
+            {navbarLinks.map(({ to, label, Icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={navLinkClass}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Icon size={18} />
+                {label}
+              </NavLink>
+            ))}
 
-            {loading ? (
-              <div className="flex justify-center py-4">
-                <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-300 h-8 w-8"></div>
-              </div>
-            ) : user ? (
-              <div className="flex flex-col space-y-4 border-t pt-4">
-                <div className="flex items-center gap-3">
+            {user ? (
+              <div className="border-t pt-4 space-y-2">
+                <div className="flex items-center gap-3 cursor-pointer" onClick={() => setDropdownOpen(!dropdownOpen)}>
                   <img
-                    src={user.photoURL || '/default-avatar.png'}
-                    alt={user.displayName || 'User avatar'}
-                    className="w-10 h-10 rounded-full border-2 border-primary object-cover"
+                    src={user?.photoURL || '/default-avatar.png'}
+                    alt="User"
+                    className="w-10 h-10 rounded-full border border-primary"
                   />
-                  <span className="font-semibold">{user.displayName || 'User'}</span>
+                  <span className="font-semibold">{userData?.name || user.displayName || 'User'}</span>
                 </div>
-                <NavLink
-                  to="/my-foods"
-                  className="flex items-center gap-2 hover:text-primary"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <FaUtensils /> My Foods
-                </NavLink>
-                <NavLink
-                  to="/add-food"
-                  className="flex items-center gap-2 hover:text-primary"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <FaPlus /> Add Food
-                </NavLink>
-                <NavLink
-                  to="/my-orders"
-                  className="flex items-center gap-2 hover:text-primary"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <FaBox /> My Orders
-                </NavLink>
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center gap-2 text-red-600 hover:text-red-800 font-semibold"
-                >
-                  <FaSignOutAlt /> Logout
-                </button>
+
+                {dropdownOpen && (
+                  <div className="mt-2 bg-gray-50 p-2 rounded shadow-inner space-y-2">
+                    <p className="text-sm font-medium">{userData?.name || user.displayName}</p>
+                    <p className="text-xs text-gray-600">{userData?.email || user.email}</p>
+                    {userData?.role === 'admin' && (
+                      <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded inline-block">
+                        Admin
+                      </span>
+                    )}
+                    <NavLink to="/my-foods" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary">My Foods</NavLink>
+                    <NavLink to="/add-food" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary">Add Food</NavLink>
+                    <NavLink to="/my-orders" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary">My Orders</NavLink>
+                    {userData?.role === 'admin' && (
+                      <NavLink to="/admin/dashboard" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary">
+                        Admin Dashboard
+                      </NavLink>
+                    )}
+                    <button onClick={() => { handleLogout(); setDropdownOpen(false); }} className="text-left w-full text-red-600 hover:text-red-800">
+                      Logout
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
-              <NavLink
-                to="/login"
-                className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md font-semibold justify-center hover:bg-primary-dark transition-colors"
+              <NavLink 
+                to="/login" 
+                className="flex items-center gap-2 text-gray-700 hover:text-primary"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <FaSignInAlt /> Login
@@ -180,97 +172,59 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* User Section Desktop */}
-      <div className="relative hidden md:flex items-center ml-6">
+      {/* User dropdown (desktop) */}
+      <div className="relative hidden md:flex items-center ml-4">
         {loading ? (
-          <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-300 h-8 w-8"></div>
+          <div className="loader w-8 h-8 border-t-4 border-gray-300 rounded-full animate-spin" />
         ) : user ? (
           <>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="focus:outline-none focus:ring-2 focus:ring-primary rounded-full"
-              aria-label="User menu"
-              aria-expanded={dropdownOpen}
-              title={user.displayName || 'User'}
+              className="focus:outline-none"
+              title={userData?.name || user.displayName}
             >
               <img
-                src={user.photoURL || '/default-avatar.png'}
-                alt={user.displayName || 'User avatar'}
-                className="w-10 h-10 rounded-full border-2 border-primary object-cover"
+                src={userData?.photoURL || user.photoURL || '/default-avatar.png'}
+                alt="User"
+                className="w-10 h-10 rounded-full border border-primary object-cover"
               />
             </button>
 
-            {/* Dropdown Menu */}
-            <AnimatePresence>
-              {dropdownOpen && (
-                <motion.div
-                  ref={dropdownRef}
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  variants={dropdownVariants}
-                  transition={{ duration: 0.2 }}
-                  className="absolute right-0 mt-3 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-2 text-gray-700 font-semibold"
-                  role="menu"
-                  aria-orientation="vertical"
-                >
-                  <NavLink
-                    to="/my-foods"
-                    className="flex items-center gap-2 px-4 py-2 hover:bg-primary/10 transition-colors"
-                    role="menuitem"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    <FaUtensils /> My Foods
+            {dropdownOpen && (
+              <div
+                ref={dropdownRef}
+                className="absolute right-0 top-full mt-2 w-52 bg-white border border-gray-200 shadow-lg rounded-md py-2 z-50"
+              >
+                <div className="px-4 py-2 border-b">
+                  <p className="text-sm font-medium">{userData?.name || user.displayName}</p>
+                  <p className="text-xs text-gray-500">{userData?.email || user.email}</p>
+                  {userData?.role === 'admin' && (
+                    <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded mt-1 inline-block">
+                      Admin
+                    </span>
+                  )}
+                </div>
+                <NavLink to="/my-foods" className="block px-4 py-2 hover:bg-gray-100">My Foods</NavLink>
+                <NavLink to="/add-food" className="block px-4 py-2 hover:bg-gray-100">Add Food</NavLink>
+                <NavLink to="/my-orders" className="block px-4 py-2 hover:bg-gray-100">My Orders</NavLink>
+                {userData?.role === 'admin' && (
+                  <NavLink to="/admin/dashboard" className="block px-4 py-2 hover:bg-gray-100">
+                    Admin Dashboard
                   </NavLink>
-                  <NavLink
-                    to="/add-food"
-                    className="flex items-center gap-2 px-4 py-2 hover:bg-primary/10 transition-colors"
-                    role="menuitem"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    <FaPlus /> Add Food
-                  </NavLink>
-                  <NavLink
-                    to="/my-orders"
-                    className="flex items-center gap-2 px-4 py-2 hover:bg-primary/10 transition-colors"
-                    role="menuitem"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    <FaBox /> My Orders
-                  </NavLink>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 mt-1 border-t border-gray-200 text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
-                    role="menuitem"
-                  >
-                    <FaSignOutAlt /> Logout
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                )}
+                <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50">
+                  Logout
+                </button>
+              </div>
+            )}
+
           </>
         ) : (
-          <NavLink
-            to="/auth/login"
-            className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md font-semibold hover:bg-primary-dark transition-colors"
-          >
+          <NavLink to="/login" className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark">
             <FaSignInAlt /> Login
           </NavLink>
         )}
       </div>
-
-      {/* Loader spinner styles */}
-      <style>{`
-        .loader {
-          border-top-color: #3498db;
-          animation: spin 1s ease-in-out infinite;
-        }
-        @keyframes spin {
-          to {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
     </nav>
   );
 }
