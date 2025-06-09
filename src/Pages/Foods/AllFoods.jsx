@@ -18,7 +18,7 @@ const AllFoods = () => {
                 setFilteredFoods(response.data);
                 setLoading(false);
             } catch (err) {
-                setError('Failed to load foods');
+                setError('Failed to load foods', err.message);
                 setLoading(false);
             }
         };

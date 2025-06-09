@@ -1,20 +1,34 @@
-import { Link, useRouteError } from 'react-router-dom';
+import { Link, useRouteError, isRouteErrorResponse } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 
 const ErrorPage = () => {
     const error = useRouteError();
+    
+    let errorMessage = "An unexpected error occurred";
+    let statusCode = "404";
+    let statusText = "Page Not Found";
+
+    if (isRouteErrorResponse(error)) {
+        // Handle route errors (like 404)
+        statusCode = error.status;
+        statusText = error.statusText;
+        errorMessage = error.data?.message || "This page doesn't exist!";
+    } else if (error instanceof Error) {
+        // Handle runtime errors
+        errorMessage = error.message;
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
             <div className="text-center">
                 <h1 className="text-9xl font-bold text-primary mb-4">
-                    {error.status || '404'}
+                    {statusCode}
                 </h1>
                 <p className="text-2xl font-semibold text-gray-800 mb-4">
-                    {error.statusText || 'Page Not Found'}
+                    {statusText}
                 </p>
                 <p className="text-gray-600 mb-8">
-                    {error.message || "Sorry, we couldn't find the page you're looking for."}
+                    {errorMessage}
                 </p>
                 <Link 
                     to="/"

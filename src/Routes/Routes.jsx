@@ -5,15 +5,18 @@ import Home from '../Pages/Home/Home';
 import Login from '../Pages/Auth/Login';
 import Register from '../Pages/Auth/Register';
 import AllFoods from '../Pages/Foods/AllFoods';
+import ErrorPage from '../Pages/ErrorPage';
+import FoodDetails from '../Pages/Foods/FoodDetails';
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <MainLayout></MainLayout>,
+        element: <MainLayout />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 index: true,
-                element: <Home></Home>,
+                element: <Home />,
             },
             {
                 path: 'auth/login',
@@ -25,9 +28,17 @@ const router = createBrowserRouter([
             },
             {
                 path: 'foods',
-                element: <AllFoods></AllFoods>
+                element: <AllFoods />,
+            },
+            {
+                path: 'food/:id',
+                element: <FoodDetails />,
             }
         ]
+    },
+    {
+        path: '*',
+        element: <ErrorPage />
     }
 ]);
 
