@@ -1,5 +1,6 @@
-import { FaUtensils, FaFacebookF, FaTwitter, FaInstagram, FaEnvelope } from 'react-icons/fa';
+import { FaFacebookF, FaTwitter, FaInstagram, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Logo from '../assets/Logo.png';
 
 export default function Footer() {
   return (
@@ -9,7 +10,8 @@ export default function Footer() {
         {/* Logo & About */}
         <div>
           <Link to="/" className="flex items-center gap-2 text-3xl font-extrabold text-primary hover:text-primary-focus transition-colors">
-            <FaUtensils /> RestoEase
+            <img src={Logo} alt="RestoEase Logo" className="w-10 h-10" />
+            RestoEase
           </Link>
           <p className="mt-4 text-gray-600">
             Your go-to platform for delicious foods and easy ordering. Experience great taste with ease!

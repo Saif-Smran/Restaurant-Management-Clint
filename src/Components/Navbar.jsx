@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fa';
 import { AuthContext } from '../Provider/AuthProvider';
 import { motion, AnimatePresence } from 'framer-motion';
+import Logo from '../assets/Logo.png';
 
 const navbarLinks = [
   { to: '/', label: 'Home', Icon: HiHome },
@@ -71,7 +72,7 @@ export default function Navbar() {
         className="flex items-center gap-2 text-2xl font-extrabold text-primary hover:text-primary-dark transition-colors"
         onClick={() => setMobileMenuOpen(false)}
       >
-        <FaUtensils />
+        <img src={Logo} alt="RestoEase Logo" className="w-10 h-10" />
         RestoEase
       </NavLink>
 
@@ -250,7 +251,7 @@ export default function Navbar() {
           </>
         ) : (
           <NavLink
-            to="/login"
+            to="/auth/login"
             className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md font-semibold hover:bg-primary-dark transition-colors"
           >
             <FaSignInAlt /> Login
