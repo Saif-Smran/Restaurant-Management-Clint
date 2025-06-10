@@ -8,6 +8,8 @@ import AllFoods from '../Pages/Foods/AllFoods';
 import ErrorPage from '../Pages/ErrorPage';
 import FoodDetails from '../Pages/Foods/FoodDetails';
 import Gallery from '../Pages/Gallery';
+import FoodPurchase from '../Pages/FoodPurchase/FoodPurchase';
+import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([
     {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
             {
                 path: 'gallery',
                 element: <Gallery />,
+            },
+            {
+                path: 'food/purchase/:id',
+                element: (
+                    <PrivateRoute>
+                        <FoodPurchase />
+                    </PrivateRoute>
+                ),
             }
         ]
     },
