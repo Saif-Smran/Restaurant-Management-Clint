@@ -7,6 +7,7 @@ import Register from '../Pages/Auth/Register';
 import AllFoods from '../Pages/Foods/AllFoods';
 import ErrorPage from '../Pages/ErrorPage';
 import FoodDetails from '../Pages/Foods/FoodDetails';
+import Gallery from '../Pages/Gallery';
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path: 'food/:id',
                 element: <FoodDetails />,
+            },
+            {
+                path: 'gallery',
+                element: <Gallery />,
             }
         ]
     },
