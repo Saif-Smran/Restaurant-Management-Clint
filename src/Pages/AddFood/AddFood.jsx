@@ -9,9 +9,7 @@ import Lottie from 'lottie-react';
 const AddFood = () => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
-
-    const handleSubmit = async (e) => {
+    const [loading, setLoading] = useState(false);    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
@@ -20,13 +18,21 @@ const AddFood = () => {
             name: form.name.value,
             image: form.image.value,
             category: form.category.value,
-            quantity: parseInt(form.quantity.value),
-            price: parseFloat(form.price.value),
-            addedBy: user.email,
-            addedByName: user.displayName,
+            quantity: {
+                $numberInt: form.quantity.value
+            },
+            price: {
+                $numberInt: form.price.value
+            },
+            addedBy: {
+                name: user.displayName,
+                email: user.email
+            },
             origin: form.origin.value,
             description: form.description.value,
-            purchases: 0,
+            purchaseCount: {
+                $numberInt: "0"
+            },
             addedTime: new Date().toISOString()
         };
 
