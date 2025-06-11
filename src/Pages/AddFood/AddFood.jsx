@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import Lottie from 'lottie-react';
-import addFoodAnimation from '../../assets/animations/add-food.json';
+// import addFoodAnimation from '../../assets/animations/add-food.json';
 
 const AddFood = () => {
     const { user } = useContext(AuthContext);
@@ -47,22 +47,23 @@ const AddFood = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-base-200 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
                 <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
                     <div className="md:flex">
                         {/* Animation Section */}
-                        <div className="md:w-1/2 bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center p-8 relative">
-                            {/* Debug border to see container */}
-                            <div className="border-2 border-dashed border-primary/30 w-full max-w-md aspect-square flex items-center justify-center">
-                                <div className="w-64 h-64">
-                                    <Lottie 
-                                        animationData={foodLoadingAnimation}
+                        <div className="md:w-1/2 bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center relative">
+                            
+                           
+                                <div className="w-full h-full">
+                                    {/* <Lottie 
+                                        animationData={addFoodAnimation}
                                         loop={true}
                                         autoplay={true}
-                                    />
+                                    /> */}
+                                    <img src="https://i.ibb.co/ccyM2Ddp/Leonardo-Phoenix-10-A-vibrant-and-mouthwatering-image-of-a-new-3.jpg" alt="Add New Food" className='w-full h-full object-cover' />
                                 </div>
-                            </div>
+                            
                         </div>
 
                         {/* Form Section */}
