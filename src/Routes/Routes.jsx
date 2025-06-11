@@ -10,6 +10,7 @@ import FoodDetails from '../Pages/Foods/FoodDetails';
 import Gallery from '../Pages/Gallery';
 import FoodPurchase from '../Pages/FoodPurchase/FoodPurchase';
 import PrivateRoute from './PrivateRoute';
+import AddFood from '../Pages/AddFood/AddFood';
 
 const router = createBrowserRouter([
     {
@@ -46,6 +47,14 @@ const router = createBrowserRouter([
                 element: (
                     <PrivateRoute>
                         <FoodPurchase />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'add-food',
+                element: (
+                    <PrivateRoute>
+                        <AddFood />
                     </PrivateRoute>
                 ),
             }

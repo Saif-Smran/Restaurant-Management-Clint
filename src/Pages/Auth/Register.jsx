@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { AuthContext } from '../../Provider/AuthProvider';
@@ -12,10 +12,13 @@ import axios from 'axios';
 const Register = () => {
     const { CreatUser, updateUser, googleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [password, setPassword] = useState('');
     const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+
+    const from = location.state?.from?.pathname || '/';
 
     const passwordCriteria = {
         minLength: password.length >= 6,
@@ -87,7 +90,7 @@ const Register = () => {
                 showConfirmButton: false,
             });
 
-            navigate('/');
+            navigate(from, { replace: true });
         } catch (err) {
             console.error('Registration error:', err);
             setError(err.message);
@@ -124,7 +127,7 @@ const Register = () => {
                 timer: 1500,
                 showConfirmButton: false,
             });
-            navigate('/');
+            navigate(from, { replace: true });
         } catch (err) {
             console.error('Google registration error:', err);
             setError(err.message);

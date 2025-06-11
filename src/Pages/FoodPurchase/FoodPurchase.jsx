@@ -89,39 +89,61 @@ const FoodPurchase = () => {
         }
 
         try {
-            // First create the order
+            // Validate inputs
+            const quantity = parseInt(formData.quantity);
+            if (isNaN(quantity) || quantity <= 0) {
+                toast.error('Please enter a valid quantity');
+                return;
+            }
+
+            if (quantity > foodDetails.quantity) {
+                toast.error(`Cannot order more than available quantity (${foodDetails.quantity})`);
+                return;
+            }
+
+            // Create order data
             const orderData = {
                 foodId: id,
+                purchasedFood_Id: foodDetails._id,
                 foodName: foodDetails.name,
                 price: parseFloat(foodDetails.price),
-                quantity: parseInt(formData.quantity),
+                quantity: quantity,
                 buyerName: user?.displayName,
                 buyerEmail: user?.email,
                 orderDate: Date.now(),
             };
 
+            // First verify the current quantity is still available
+            const currentFoodCheck = await axios.get(`http://localhost:3000/foods/${id}`);
+            if (currentFoodCheck.data.quantity < quantity) {
+                toast.error('Sorry, the requested quantity is no longer available');
+                return;
+            }
+
+            // Create the order
             const orderResponse = await axios.post('http://localhost:3000/orders', orderData);
             
             if (orderResponse.status === 200 || orderResponse.status === 201) {
-                // If order is successful, update the food quantity
-                const newQuantity = foodDetails.quantity - parseInt(formData.quantity);
+                // Calculate new quantity and purchases
+                const newQuantity = foodDetails.quantity - quantity;
+                const newPurchases = (foodDetails.purchases || 0) + 1;
                 
-                // Send all existing food details along with updated quantity
-                const updatedFood = {
-                    ...foodDetails,
-                    quantity: newQuantity
+                // Only send necessary update data
+                const updateData = {
+                    quantity: newQuantity,
+                    purchases: newPurchases
                 };
-                delete updatedFood._id; // Remove _id as MongoDB doesn't allow updating it
 
-                const updateResponse = await axios.put(`http://localhost:3000/foods/${id}`, updatedFood);
+                const updateResponse = await axios.put(`http://localhost:3000/foods/${id}`, updateData);
 
-                if (updateResponse.data?.message === 'Food updated successfully') {
+                if (updateResponse.status === 200) {
                     setShowSuccessAnimation(true);
+                    toast.success('Order placed successfully!');
                     setTimeout(() => {
                         navigate('/my-orders');
                     }, 2000);
                 } else {
-                    throw new Error(updateResponse.data?.error || 'Failed to update food quantity');
+                    throw new Error('Failed to update food quantity');
                 }
             }
         } catch (error) {

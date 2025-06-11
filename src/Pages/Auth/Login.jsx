@@ -62,7 +62,6 @@ const Login = () => {
             
             // Get fresh token after login
             const token = await userCredential.user.getIdToken();
-            console.log('User logged in:', token);
             
             Swal.fire({
                 icon: 'success',
@@ -71,6 +70,8 @@ const Login = () => {
                 timer: 1500,
                 showConfirmButton: false,
             });
+
+            // Use replace: true to prevent going back to login page
             navigate(from, { replace: true });
         } catch (err) {
             console.error('Login error:', err);
@@ -110,6 +111,8 @@ const Login = () => {
                 timer: 1500,
                 showConfirmButton: false,
             });
+
+            // Use replace: true to prevent going back to login page
             navigate(from, { replace: true });
         } catch (err) {
             console.error('Google login error:', err);
