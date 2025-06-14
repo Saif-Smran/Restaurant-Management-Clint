@@ -9,7 +9,7 @@ import Lottie from 'lottie-react';
 const AddFood = () => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);    const handleSubmit = async (e) => {
+    const [loading, setLoading] = useState(false); const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
@@ -18,27 +18,21 @@ const AddFood = () => {
             name: form.name.value,
             image: form.image.value,
             category: form.category.value,
-            quantity: {
-                $numberInt: form.quantity.value
-            },
-            price: {
-                $numberInt: form.price.value
-            },
+            quantity: form.quantity.value,
+            price: form.price.value,
             addedBy: {
                 name: user.displayName,
                 email: user.email
             },
             origin: form.origin.value,
             description: form.description.value,
-            purchaseCount: {
-                $numberInt: "0"
-            },
+            purchaseCount: "0",
             addedTime: new Date().toISOString()
         };
 
         try {
             const response = await axios.post('http://localhost:3000/foods', foodData);
-            
+
             if (response.status === 201) {
                 toast.success('Food item added successfully!');
                 form.reset();
@@ -59,17 +53,17 @@ const AddFood = () => {
                     <div className="md:flex">
                         {/* Animation Section */}
                         <div className="md:w-1/2 bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center relative">
-                            
-                           
-                                <div className="w-full h-full">
-                                    {/* <Lottie 
+
+
+                            <div className="w-full h-full">
+                                {/* <Lottie 
                                         animationData={addFoodAnimation}
                                         loop={true}
                                         autoplay={true}
                                     /> */}
-                                    <img src="https://i.ibb.co/ccyM2Ddp/Leonardo-Phoenix-10-A-vibrant-and-mouthwatering-image-of-a-new-3.jpg" alt="Add New Food" className='w-full h-full object-cover' />
-                                </div>
-                            
+                                <img src="https://i.ibb.co/ccyM2Ddp/Leonardo-Phoenix-10-A-vibrant-and-mouthwatering-image-of-a-new-3.jpg" alt="Add New Food" className='w-full h-full object-cover' />
+                            </div>
+
                         </div>
 
                         {/* Form Section */}
