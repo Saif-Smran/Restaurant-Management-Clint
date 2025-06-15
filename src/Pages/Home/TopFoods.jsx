@@ -45,11 +45,11 @@ const TopFoods = () => {
     }
 
     return (
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-base-300">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold mb-4 font-poppins">Top Foods</h2>
-                    <p className="text-gray-600 font-nunito">Discover our most popular dishes</p>
+                    <p className="text-base-content/70 font-nunito">Discover our most popular dishes</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">

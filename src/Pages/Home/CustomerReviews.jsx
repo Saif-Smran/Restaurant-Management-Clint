@@ -26,11 +26,11 @@ const CustomerReviews = () => {
     ];
 
     return (
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-base-300">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl font-bold text-gray-800 mb-4 font-poppins">What Our Customers Say</h2>
-                    <p className="text-gray-600 max-w-2xl mx-auto font-nunito">
+                    <h2 className="text-4xl font-bold text-base-content mb-4 font-poppins">What Our Customers Say</h2>
+                    <p className="text-base-content/70 max-w-2xl mx-auto font-nunito">
                         Don't just take our word for it - hear what our valued customers have to say about their dining experience with us.
                     </p>
                 </div>
@@ -39,12 +39,12 @@ const CustomerReviews = () => {
                     {reviews.map((review, index) => (
                         <div 
                             key={index}
-                            className="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
+                            className="bg-base-100 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
                         >
                             <div className="flex justify-center mb-6">
                                 <FaQuoteLeft className="text-4xl text-primary opacity-20" />
                             </div>
-                            <p className="text-gray-600 mb-6 text-center italic font-nunito">
+                            <p className="text-base-content/70 mb-6 text-center italic font-nunito">
                                 "{review.review}"
                             </p>
                             <div className="flex items-center justify-center mb-4">
@@ -58,8 +58,8 @@ const CustomerReviews = () => {
                                     alt={review.name}
                                     className="w-16 h-16 rounded-full mx-auto mb-3 object-cover"
                                 />
-                                <h4 className="font-semibold text-gray-800 font-poppins">{review.name}</h4>
-                                <p className="text-gray-500 text-sm font-nunito">{review.position}</p>
+                                <h4 className="font-semibold text-base-content font-poppins">{review.name}</h4>
+                                <p className="text-base-content/70 text-sm font-nunito">{review.position}</p>
                             </div>
                         </div>
                     ))}

@@ -22,6 +22,16 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+  }
+
   html {
     font-family: 'Nunito', system-ui, sans-serif;
   }
@@ -41,6 +51,10 @@
   .special-text {
     font-family: 'Caveat', cursive;
   }
+
+  body {
+    @apply transition-colors duration-200;
+  }
 }
 
 @layer components {
@@ -51,6 +65,18 @@
   .menu-item {
     font-family: 'Raleway', sans-serif;
   }
+
+  .btn {
+    @apply px-4 py-2 rounded-md transition-colors duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-dark;
+  }
+
+  .loader {
+    @apply border-t-4 border-primary rounded-full animate-spin;
+  }
 }
 
 /* Custom scrollbar */
@@ -59,14 +85,30 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  @apply bg-gray-100 dark:bg-dark-card;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  @apply bg-gray-400 dark:bg-gray-500;
+}
+
+/* Font classes */
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-quicksand {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.font-nunito {
+  font-family: 'Nunito', sans-serif;
+}
+
+.font-raleway {
+  font-family: 'Raleway', sans-serif;
 }

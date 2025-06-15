@@ -1,38 +1,31 @@
 import { Link, useRouteError, isRouteErrorResponse } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 
-const ErrorPage = () => {
+export default function ErrorPage() {
     const error = useRouteError();
-    
-    let errorMessage = "An unexpected error occurred";
-    let statusCode = "404";
-    let statusText = "Page Not Found";
+    const defaultError = {
+        statusText: "Page Not Found",
+        message: "An unexpected error occurred",
+        status: "404"
+    };
 
-    if (isRouteErrorResponse(error)) {
-        // Handle route errors (like 404)
-        statusCode = error.status;
-        statusText = error.statusText;
-        errorMessage = error.data?.message || "This page doesn't exist!";
-    } else if (error instanceof Error) {
-        // Handle runtime errors
-        errorMessage = error.message;
-    }
+    const errorData = error?.statusText ? error : defaultError;
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-            <div className="text-center">
-                <h1 className="text-9xl font-bold text-primary mb-4 font-poppins">
-                    {statusCode}
+        <div className="min-h-screen flex items-center justify-center bg-base-100">
+            <div className="text-center p-8">
+                <h1 className="text-6xl font-bold text-primary font-poppins mb-4">
+                    {errorData.status}
                 </h1>
-                <p className="text-2xl font-semibold text-gray-800 mb-4 font-poppins">
-                    {statusText}
+                <p className="text-2xl text-base-content font-quicksand mb-8">
+                    {errorData.statusText}
                 </p>
-                <p className="text-gray-600 mb-8 font-nunito">
-                    {errorMessage}
+                <p className="text-base-content/70 font-nunito mb-8">
+                    {errorData.message}
                 </p>
-                <Link 
+                <Link
                     to="/"
-                    className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors font-quicksand"
+                    className="btn btn-primary text-primary-content font-quicksand inline-flex items-center gap-2"
                 >
                     <FaHome />
                     Back to Home
@@ -40,6 +33,4 @@ const ErrorPage = () => {
             </div>
         </div>
     );
-};
-
-export default ErrorPage; 
+} 

@@ -132,7 +132,7 @@ const Login = () => {
             className="min-h-screen flex items-center justify-center bg-cover bg-center"
             style={{ backgroundImage: `url(${loginBg})` }}
         >
-            <div className="w-full max-w-6xl px-4 py-10 flex flex-col md:flex-row gap-10 bg-white/40 backdrop-blur-md rounded-2xl shadow-lg">
+            <div className="w-full max-w-6xl px-4 py-10 flex flex-col md:flex-row gap-10 bg-base-200/40 backdrop-blur-md rounded-2xl shadow-lg">
                 {/* Left: Animation */}
                 <div className="w-full md:w-1/2 flex justify-center items-center">
                     <Lottie animationData={loginAnimation} loop className="w-full max-w-sm" />
@@ -146,7 +146,7 @@ const Login = () => {
 
                     <button
                         onClick={handleGoogleLogin}
-                        className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition-all duration-200 shadow font-quicksand"
+                        className="w-full flex items-center justify-center gap-2 bg-base-200 text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition-all duration-200 shadow font-quicksand"
                     >
                         <FcGoogle className="text-xl" />
                         <span className="font-medium">Google</span>
@@ -161,14 +161,14 @@ const Login = () => {
                                 type="email"
                                 required
                                 placeholder="Email"
-                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
+                                className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
                             />
                             <input
                                 name="password"
                                 type="password"
                                 required
                                 placeholder="Password"
-                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
+                                className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
                             />
                         </div>
 

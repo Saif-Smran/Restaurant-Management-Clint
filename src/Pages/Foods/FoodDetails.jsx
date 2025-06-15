@@ -54,7 +54,7 @@ const FoodDetails = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="max-w-6xl mx-auto bg-base-200 rounded-lg shadow-lg overflow-hidden">
           <div className="md:flex">
             {/* Image */}
             <div className="md:w-1/2">

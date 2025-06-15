@@ -143,7 +143,7 @@ const UpdateFood = () => {
 
     return (
         <div className="py-8 px-4 bg-base-200">
-            <div className="bg-white shadow-lg rounded-lg max-w-3xl mx-auto p-6">
+            <div className="bg-base-200 shadow-lg rounded-lg max-w-3xl mx-auto p-6">
                 <h1 className="text-3xl font-bold text-center mb-8">Update Food Item</h1>
 
                 {updateSuccess && (

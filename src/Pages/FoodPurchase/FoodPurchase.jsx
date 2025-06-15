@@ -161,7 +161,7 @@ const FoodPurchase = () => {
     return (
         <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-                <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
+                <div className="bg-base-200 rounded-xl shadow-2xl overflow-hidden">
                     <div className="md:flex">
                         {/* Food Image Section */}
                         <div className="md:w-1/2 relative">
@@ -170,7 +170,7 @@ const FoodPurchase = () => {
                                 alt={foodDetails.name}
                                 className="w-full h-full object-cover"
                             />
-                            <div className="absolute top-4 left-4 bg-white px-3 py-1 rounded-full shadow-md">
+                            <div className="absolute top-4 left-4 bg-base-200 px-3 py-1 rounded-full shadow-md">
                                 <span className="text-primary font-semibold">${foodDetails.price}</span>
                             </div>
                         </div>

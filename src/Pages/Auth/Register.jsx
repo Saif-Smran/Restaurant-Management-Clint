@@ -144,7 +144,7 @@ const Register = () => {
             className="min-h-screen flex items-center justify-center bg-cover bg-center"
             style={{ backgroundImage: `url(${registerBg})` }}
         >
-            <div className="w-full max-w-6xl px-4 py-10 flex flex-col md:flex-row gap-10 bg-white/40 backdrop-blur-md rounded-2xl shadow-lg">
+            <div className="w-full max-w-6xl px-4 py-10 flex flex-col md:flex-row gap-10 bg-base-200/40 backdrop-blur-md rounded-2xl shadow-lg">
                 {/* Left: Animation */}
                 <div className="w-full md:w-1/2 flex justify-center items-center">
                     <Lottie animationData={loginAnimation} loop className="w-full max-w-sm" />
@@ -158,7 +158,7 @@ const Register = () => {
 
                     <button
                         onClick={handleGoogleRegister}
-                        className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition-all duration-200 shadow font-quicksand"
+                        className="w-full flex items-center justify-center gap-2 bg-base-200 text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition-all duration-200 shadow font-quicksand"
                     >
                         <FcGoogle className="text-xl" />
                         <span className="font-medium">Google</span>
@@ -173,21 +173,21 @@ const Register = () => {
                                 type="text"
                                 required
                                 placeholder="Full Name"
-                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
+                                className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
                             />
                             <input
                                 name="email"
                                 type="email"
                                 required
                                 placeholder="Email"
-                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
+                                className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
                             />
                             <input
                                 name="photoURL"
                                 type="url"
                                 required
                                 placeholder="Photo URL"
-                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
+                                className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
                             />
                             <input
                                 name="password"
@@ -198,13 +198,13 @@ const Register = () => {
                                 onFocus={() => setIsPasswordFocused(true)}
                                 onBlur={() => setIsPasswordFocused(false)}
                                 placeholder="Password"
-                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
+                                className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
                             />
                         </div>
 
                         {/* Password Rules */}
                         {isPasswordFocused && (
-                            <div className="mt-3 bg-white/80 p-3 rounded-lg text-sm shadow">
+                            <div className="mt-3 bg-base-200/80 p-3 rounded-lg text-sm shadow">
                                 <p className="font-semibold text-gray-700 mb-1 font-poppins">Password must contain:</p>
                                 <ul className="space-y-1">
                                     {Object.entries(passwordCriteria).map(([key, valid]) => (
