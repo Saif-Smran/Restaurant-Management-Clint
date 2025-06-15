@@ -153,18 +153,18 @@ const Register = () => {
                 {/* Right: Form */}
                 <div className="w-full md:w-1/2 p-6">
                     <div className="text-center mb-4">
-                        <h2 className="text-2xl font-bold text-gray-700">Register with</h2>
+                        <h2 className="text-2xl font-bold text-gray-700 font-poppins">Register with</h2>
                     </div>
 
                     <button
                         onClick={handleGoogleRegister}
-                        className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition-all duration-200 shadow"
+                        className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition-all duration-200 shadow font-quicksand"
                     >
                         <FcGoogle className="text-xl" />
                         <span className="font-medium">Google</span>
                     </button>
 
-                    <div className="my-6 text-center text-gray-500">or use credentials</div>
+                    <div className="my-6 text-center text-gray-500 font-nunito">or use credentials</div>
 
                     <form onSubmit={handleRegister}>
                         <div className="space-y-4">
@@ -173,21 +173,21 @@ const Register = () => {
                                 type="text"
                                 required
                                 placeholder="Full Name"
-                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow"
+                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
                             />
                             <input
                                 name="email"
                                 type="email"
                                 required
                                 placeholder="Email"
-                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow"
+                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
                             />
                             <input
                                 name="photoURL"
                                 type="url"
                                 required
                                 placeholder="Photo URL"
-                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow"
+                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
                             />
                             <input
                                 name="password"
@@ -198,17 +198,17 @@ const Register = () => {
                                 onFocus={() => setIsPasswordFocused(true)}
                                 onBlur={() => setIsPasswordFocused(false)}
                                 placeholder="Password"
-                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow"
+                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
                             />
                         </div>
 
                         {/* Password Rules */}
                         {isPasswordFocused && (
                             <div className="mt-3 bg-white/80 p-3 rounded-lg text-sm shadow">
-                                <p className="font-semibold text-gray-700 mb-1">Password must contain:</p>
+                                <p className="font-semibold text-gray-700 mb-1 font-poppins">Password must contain:</p>
                                 <ul className="space-y-1">
                                     {Object.entries(passwordCriteria).map(([key, valid]) => (
-                                        <li key={key} className="flex items-center gap-2">
+                                        <li key={key} className="flex items-center gap-2 font-nunito">
                                             {valid ? <FaCheck className="text-green-500" /> : <FaTimes className="text-red-500" />}
                                             <span className={valid ? 'text-green-600' : 'text-gray-600'}>
                                                 {{
@@ -223,19 +223,19 @@ const Register = () => {
                             </div>
                         )}
 
-                        {error && <p className="text-red-600 text-center mt-2">{error}</p>}
+                        {error && <p className="text-red-600 text-center mt-2 font-poppins">{error}</p>}
 
                         <button
                             type="submit"
                             disabled={loading}
-                            className="mt-6 w-full bg-primary text-white py-2 rounded-md font-semibold hover:bg-primary-dark transition duration-200"
+                            className="mt-6 w-full bg-primary text-white py-2 rounded-md font-semibold hover:bg-primary-dark transition duration-200 font-quicksand"
                         >
                             {loading ? 'Creating Account...' : 'Create Account'}
                         </button>
                     </form>
 
                     <div className="text-center mt-4">
-                        <Link to="/auth/login" className="text-base font-bold text-white hover:text-gray-200">
+                        <Link to="/auth/login" className="text-base font-bold text-white hover:text-gray-200 font-nunito">
                             Already have an account? <span className="underline">Login</span>
                         </Link>
                     </div>

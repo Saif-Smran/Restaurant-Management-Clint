@@ -1,17 +1,22 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
     content: [
-        "./src/**/*.{js,jsx,ts,tsx}", // adjust if your paths differ
-        "./public/index.html",
+        "./index.html",
+        "./src/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
         extend: {
             fontFamily: {
-                poppins: ['Poppins', 'sans-serif'],
-                quicksand: ['Quicksand', 'sans-serif'],
-                raleway: ['Raleway', 'sans-serif'],
-                nunito: ['Nunito', 'sans-serif'],
-                caveat: ['Caveat', 'cursive'],
+                'poppins': ['Poppins', 'sans-serif'],
+                'quicksand': ['Quicksand', 'sans-serif'],
+                'raleway': ['Raleway', 'sans-serif'],
+                'nunito': ['Nunito', 'sans-serif'],
+                'caveat': ['Caveat', 'cursive'],
+            },
+            colors: {
+                primary: '#FF6B6B',
+                secondary: '#4ECDC4',
+                dark: '#2D3436',
             },
         },
     },

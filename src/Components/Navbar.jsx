@@ -79,13 +79,13 @@ export default function Navbar() {
   return (
     <nav className="bg-base-100 shadow-md px-6 py-4 flex justify-between items-center sticky top-0 z-50">
       {/* Logo */}
-      <Link to="/" className="flex items-center gap-2 text-2xl font-extrabold text-primary">
+      <Link to="/" className="flex items-center gap-2 text-2xl font-extrabold text-primary font-poppins">
         <img src={Logo} alt="Logo" className="w-10 h-10" />
         RestoEase
       </Link>
 
       {/* Desktop nav */}
-      <div className="hidden md:flex items-center space-x-8 font-medium">
+      <div className="hidden md:flex items-center space-x-8 font-medium font-quicksand">
         {navbarLinks.map(({ to, label, Icon }) => (
           <NavLink key={to} to={to} className={navLinkClass}>
             <Icon size={18} />
@@ -97,7 +97,7 @@ export default function Navbar() {
       {/* Hamburger (Mobile) */}
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="md:hidden text-primary"
+        className="md:hidden text-primary font-quicksand"
         aria-label="Toggle mobile menu"
       >
         {mobileMenuOpen ? <HiX size={28} /> : <HiOutlineMenu size={28} />}
@@ -111,7 +111,7 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'tween' }}
-            className="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 flex flex-col p-6 space-y-6"
+            className="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 flex flex-col p-6 space-y-6 font-quicksand"
           >
             {navbarLinks.map(({ to, label, Icon }) => (
               <NavLink
@@ -133,27 +133,27 @@ export default function Navbar() {
                     alt="User"
                     className="w-10 h-10 rounded-full border border-primary"
                   />
-                  <span className="font-semibold">{userData?.name || user.displayName || 'User'}</span>
+                  <span className="font-semibold font-poppins">{userData?.name || user.displayName || 'User'}</span>
                 </div>
 
                 {dropdownOpen && (
                   <div className="mt-2 bg-gray-50 p-2 rounded shadow-inner space-y-2">
-                    <p className="text-sm font-medium">{userData?.name || user.displayName}</p>
-                    <p className="text-xs text-gray-600">{userData?.email || user.email}</p>
+                    <p className="text-sm font-medium font-poppins">{userData?.name || user.displayName}</p>
+                    <p className="text-xs text-gray-600 font-nunito">{userData?.email || user.email}</p>
                     {userData?.role === 'admin' && (
-                      <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded inline-block">
+                      <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded inline-block font-raleway">
                         Admin
                       </span>
                     )}
-                    <NavLink to="/my-foods" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary">My Foods</NavLink>
-                    <NavLink to="/add-food" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary">Add Food</NavLink>
-                    <NavLink to="/my-orders" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary">My Orders</NavLink>
+                    <NavLink to="/my-foods" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary font-quicksand">My Foods</NavLink>
+                    <NavLink to="/add-food" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary font-quicksand">Add Food</NavLink>
+                    <NavLink to="/my-orders" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary font-quicksand">My Orders</NavLink>
                     {userData?.role === 'admin' && (
-                      <NavLink to="/admin/dashboard" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary">
+                      <NavLink to="/admin/dashboard" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary font-quicksand">
                         Admin Dashboard
                       </NavLink>
                     )}
-                    <button onClick={() => { handleLogout(); setDropdownOpen(false); }} className="text-left w-full text-red-600 hover:text-red-800">
+                    <button onClick={() => { handleLogout(); setDropdownOpen(false); }} className="text-left w-full text-red-600 hover:text-red-800 font-quicksand">
                       Logout
                     </button>
                   </div>
@@ -162,7 +162,7 @@ export default function Navbar() {
             ) : (
               <NavLink 
                 to="/login" 
-                className="flex items-center gap-2 text-gray-700 hover:text-primary"
+                className="flex items-center gap-2 text-gray-700 hover:text-primary font-quicksand"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <FaSignInAlt /> Login
@@ -193,13 +193,13 @@ export default function Navbar() {
             {dropdownOpen && (
               <div
                 ref={dropdownRef}
-                className="absolute right-0 top-full mt-2 w-52 bg-white border border-gray-200 shadow-lg rounded-md py-2 z-50"
+                className="absolute right-0 top-full mt-2 w-52 bg-white border border-gray-200 shadow-lg rounded-md py-2 z-50 font-quicksand"
               >
                 <div className="px-4 py-2 border-b">
-                  <p className="text-sm font-medium">{userData?.name || user.displayName}</p>
-                  <p className="text-xs text-gray-500">{userData?.email || user.email}</p>
+                  <p className="text-sm font-medium font-poppins">{userData?.name || user.displayName}</p>
+                  <p className="text-xs text-gray-500 font-nunito">{userData?.email || user.email}</p>
                   {userData?.role === 'admin' && (
-                    <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded mt-1 inline-block">
+                    <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded mt-1 inline-block font-raleway">
                       Admin
                     </span>
                   )}
@@ -220,7 +220,7 @@ export default function Navbar() {
 
           </>
         ) : (
-          <NavLink to="/login" className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark">
+          <NavLink to="/login" className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark font-quicksand">
             <FaSignInAlt /> Login
           </NavLink>
         )}

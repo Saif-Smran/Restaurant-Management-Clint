@@ -28,8 +28,8 @@ const WhyChooseUs = () => {
         <section className="py-16 bg-gray-50">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl font-bold text-gray-800 mb-4">Why Choose Us</h2>
-                    <p className="text-gray-600 max-w-2xl mx-auto">
+                    <h2 className="text-4xl font-bold text-gray-800 mb-4 font-poppins">Why Choose Us</h2>
+                    <p className="text-gray-600 max-w-2xl mx-auto font-nunito">
                         Experience the perfect blend of taste, quality, and service. We're committed to making every meal special.
                     </p>
                 </div>
@@ -43,10 +43,10 @@ const WhyChooseUs = () => {
                             <div className="mb-4 flex justify-center">
                                 {feature.icon}
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                            <h3 className="text-xl font-semibold text-gray-800 mb-3 font-poppins">
                                 {feature.title}
                             </h3>
-                            <p className="text-gray-600">
+                            <p className="text-gray-600 font-nunito">
                                 {feature.description}
                             </p>
                         </div>

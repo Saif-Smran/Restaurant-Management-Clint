@@ -16,3 +16,57 @@
 .input-no-arrow {
   -moz-appearance: textfield;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Nunito', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  button, .btn {
+    font-family: 'Quicksand', sans-serif;
+  }
+
+  .price-tag {
+    font-family: 'Raleway', sans-serif;
+  }
+
+  .special-text {
+    font-family: 'Caveat', cursive;
+  }
+}
+
+@layer components {
+  .card {
+    font-family: 'Quicksand', sans-serif;
+  }
+
+  .menu-item {
+    font-family: 'Raleway', sans-serif;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

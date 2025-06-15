@@ -86,50 +86,50 @@ const AddFood = () => {
                         {/* Form Section */}
                         <div className="md:w-1/2 p-8">
                             <div className="text-center mb-8">
-                                <h2 className="text-3xl font-bold text-gray-900">Add New Food</h2>
-                                <p className="mt-2 text-sm text-gray-600">Fill in the details below to add a new food item</p>
+                                <h2 className="text-3xl font-bold text-gray-900 font-poppins">Add New Food</h2>
+                                <p className="mt-2 text-sm text-gray-600 font-nunito">Fill in the details below to add a new food item</p>
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">
+                                    <label className="block text-sm font-medium text-gray-700 font-poppins">
                                         Food Name
                                     </label>
                                     <input
                                         type="text"
                                         name="name"
                                         required
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary font-nunito"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">
+                                    <label className="block text-sm font-medium text-gray-700 font-poppins">
                                         Food Image URL
                                     </label>
                                     <input
                                         type="url"
                                         name="image"
                                         required
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary font-nunito"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">
+                                    <label className="block text-sm font-medium text-gray-700 font-poppins">
                                         Category
                                     </label>
                                     <input
                                         type="text"
                                         name="category"
                                         required
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary font-nunito"
                                     />
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700">
+                                        <label className="block text-sm font-medium text-gray-700 font-poppins">
                                             Quantity
                                         </label>
                                         <input
@@ -137,12 +137,12 @@ const AddFood = () => {
                                             name="quantity"
                                             min="1"
                                             required
-                                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary font-nunito"
                                         />
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700">
+                                        <label className="block text-sm font-medium text-gray-700 font-poppins">
                                             Price (BDT)
                                         </label>
                                         <input
@@ -151,34 +151,34 @@ const AddFood = () => {
                                             min="0.01"
                                             step="0.01"
                                             required
-                                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary font-nunito"
                                         />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">
+                                    <label className="block text-sm font-medium text-gray-700 font-poppins">
                                         Description
                                     </label>
                                     <textarea
                                         name="description"
                                         rows="4"
                                         required
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary font-nunito"
                                         placeholder="Add ingredients, making procedure, etc..."
                                     ></textarea>
                                 </div>
 
                                 <div className="bg-gray-50 p-4 rounded-lg">
-                                    <p className="text-sm text-gray-600 mb-2">Adding as:</p>
-                                    <p className="font-semibold">{user?.displayName}</p>
-                                    <p className="text-gray-500">{user?.email}</p>
+                                    <p className="text-sm text-gray-600 mb-2 font-nunito">Adding as:</p>
+                                    <p className="font-semibold font-poppins">{user?.displayName}</p>
+                                    <p className="text-gray-500 font-nunito">{user?.email}</p>
                                 </div>
 
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary font-quicksand"
                                 >
                                     {loading ? 'Adding Food...' : 'Add Food Item'}
                                 </button>

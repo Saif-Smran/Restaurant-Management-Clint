@@ -41,10 +41,10 @@ const Slider = () => {
         return (
             <div className="w-full h-[80vh] flex items-center justify-center bg-gray-100">
                 <div className="text-center text-red-600">
-                    <p className="text-xl font-semibold">{error}</p>
+                    <p className="text-xl font-semibold font-poppins">{error}</p>
                     <button 
                         onClick={() => window.location.reload()} 
-                        className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark"
+                        className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark font-quicksand"
                     >
                         Retry
                     </button>
@@ -70,13 +70,13 @@ const Slider = () => {
                             style={{ backgroundImage: `url(${slide.image})` }}
                         >
                             <div className="bg-black/50 p-6 md:p-10 rounded-lg text-white max-w-xl mx-auto">
-                                <h2 className="text-3xl md:text-5xl font-bold mb-4 text-center">{slide.title}</h2>
-                                <p className="mb-6 text-sm md:text-base text-center">{slide.description}</p>
+                                <h2 className="text-3xl md:text-5xl font-bold mb-4 text-center font-poppins">{slide.title}</h2>
+                                <p className="mb-6 text-sm md:text-base text-center font-nunito">{slide.description}</p>
                                 {slide.buttonText && slide.buttonLink && (
                                     <div className="text-center">
                                         <Link
                                             to={slide.buttonLink}
-                                            className="btn btn-primary inline-flex items-center gap-2"
+                                            className="btn btn-primary inline-flex items-center gap-2 font-quicksand"
                                         >
                                             {slide.buttonText} <FaArrowRight />
                                         </Link>

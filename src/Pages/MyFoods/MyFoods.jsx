@@ -81,27 +81,27 @@ const MyFoods = () => {
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-orange-500"></div>
     </div>;
 
-    if (error) return <div className="text-center text-red-500 py-8">Error: {error}</div>;
+    if (error) return <div className="text-center text-red-500 py-8 font-poppins">Error: {error}</div>;
 
     return (
         <div className="container mx-auto py-8 px-4">
-            <h1 className="text-3xl font-bold text-center mb-8">My Foods</h1>
+            <h1 className="text-3xl font-bold text-center mb-8 font-poppins">My Foods</h1>
 
             {foods.length === 0 ? (
                 <div className="text-center py-8">
-                    <p className="text-lg mb-4">You haven't added any food items yet.</p>
-                    <Link to="/add-food" className="btn btn-primary">Add Your First Food</Link>
+                    <p className="text-lg mb-4 font-nunito">You haven't added any food items yet.</p>
+                    <Link to="/add-food" className="btn btn-primary font-quicksand">Add Your First Food</Link>
                 </div>
             ) : (
                 <div className="overflow-x-auto max-w-11/12 mx-auto">
                     <table className="table w-full">
                         <thead>
                             <tr className="bg-base-200">
-                                <th className='text-center'>Image</th>
-                                <th className='text-center'>Name</th>
-                                <th className='text-center'>Category</th>
-                                <th className='text-center'>Price(BDT)</th>
-                                <th className='text-center'>Actions</th>
+                                <th className='text-center font-poppins'>Image</th>
+                                <th className='text-center font-poppins'>Name</th>
+                                <th className='text-center font-poppins'>Category</th>
+                                <th className='text-center font-poppins'>Price(BDT)</th>
+                                <th className='text-center font-poppins'>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,27 +115,27 @@ const MyFoods = () => {
                                         </div>
                                     </td>
                                     <td className="align-middle text-center">
-                                        <div className="font-bold">{food.name}</div>
+                                        <div className="font-bold font-poppins">{food.name}</div>
                                     </td>
-                                    <td className="align-middle text-center">{food.category}</td>                                    
-                                    <td className="align-middle text-center">{typeof food.price === 'object' && food.price.$numberInt ? food.price.$numberInt : food.price}</td>
+                                    <td className="align-middle text-center font-raleway">{food.category}</td>                                    
+                                    <td className="align-middle text-center font-raleway">{typeof food.price === 'object' && food.price.$numberInt ? food.price.$numberInt : food.price}</td>
                                     <td className="align-middle text-center ">
                                         <div className="flex flex-wrap gap-2 justify-center items-center">
                                             <Link
                                                 to={`/food/${food._id}`}
-                                                className="btn btn-sm btn-info"
+                                                className="btn btn-sm btn-info font-quicksand"
                                             >
                                                 <FaEye /> View
                                             </Link>
                                             <Link
                                                 to={`/update-food/${food._id}`}
-                                                className="btn btn-sm btn-primary"
+                                                className="btn btn-sm btn-primary font-quicksand"
                                             >
                                                 <FaEdit /> Update
                                             </Link>
                                             <button
                                                 onClick={() => handleDelete(food._id)}
-                                                className="btn btn-sm btn-error"
+                                                className="btn btn-sm btn-error font-quicksand"
                                             >
                                                 <FaTrash /> Delete
                                             </button>

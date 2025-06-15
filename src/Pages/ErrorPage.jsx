@@ -21,18 +21,18 @@ const ErrorPage = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
             <div className="text-center">
-                <h1 className="text-9xl font-bold text-primary mb-4">
+                <h1 className="text-9xl font-bold text-primary mb-4 font-poppins">
                     {statusCode}
                 </h1>
-                <p className="text-2xl font-semibold text-gray-800 mb-4">
+                <p className="text-2xl font-semibold text-gray-800 mb-4 font-poppins">
                     {statusText}
                 </p>
-                <p className="text-gray-600 mb-8">
+                <p className="text-gray-600 mb-8 font-nunito">
                     {errorMessage}
                 </p>
                 <Link 
                     to="/"
-                    className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors"
+                    className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors font-quicksand"
                 >
                     <FaHome />
                     Back to Home

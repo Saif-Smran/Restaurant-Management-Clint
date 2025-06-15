@@ -141,18 +141,18 @@ const Login = () => {
                 {/* Right: Form */}
                 <div className="w-full md:w-1/2 p-6">
                     <div className="text-center mb-4">
-                        <h2 className="text-2xl font-bold text-gray-700">Login with</h2>
+                        <h2 className="text-2xl font-bold text-gray-700 font-poppins">Login with</h2>
                     </div>
 
                     <button
                         onClick={handleGoogleLogin}
-                        className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition-all duration-200 shadow"
+                        className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition-all duration-200 shadow font-quicksand"
                     >
                         <FcGoogle className="text-xl" />
                         <span className="font-medium">Google</span>
                     </button>
 
-                    <div className="my-6 text-center text-gray-500">or use credentials</div>
+                    <div className="my-6 text-center text-gray-500 font-nunito">or use credentials</div>
 
                     <form onSubmit={handleLogin}>
                         <div className="space-y-4">
@@ -161,29 +161,29 @@ const Login = () => {
                                 type="email"
                                 required
                                 placeholder="Email"
-                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow"
+                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
                             />
                             <input
                                 name="password"
                                 type="password"
                                 required
                                 placeholder="Password"
-                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow"
+                                className="w-full px-4 py-2 rounded-md bg-white/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
                             />
                         </div>
 
-                        {error && <p className="text-red-600 text-center mt-2">{error}</p>}
+                        {error && <p className="text-red-600 text-center mt-2 font-poppins">{error}</p>}
 
                         <button
                             type="submit"
-                            className="mt-6 w-full bg-primary text-white py-2 rounded-md font-semibold hover:bg-primary-dark transition duration-200"
+                            className="mt-6 w-full bg-primary text-white py-2 rounded-md font-semibold hover:bg-primary-dark transition duration-200 font-quicksand"
                         >
                             Sign In
                         </button>
                     </form>
 
                     <div className="text-center mt-4">
-                        <Link to="/auth/register" className="text-base font-bold text-white hover:text-gray-200">
+                        <Link to="/auth/register" className="text-base font-bold text-white hover:text-gray-200 font-nunito">
                             Don't have an account? <span className="underline">Register</span>
                         </Link>
                     </div>

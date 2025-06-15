@@ -48,8 +48,8 @@ const TopFoods = () => {
         <section className="py-16 bg-gray-50">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold mb-4">Top Foods</h2>
-                    <p className="text-gray-600">Discover our most popular dishes</p>
+                    <h2 className="text-3xl font-bold mb-4 font-poppins">Top Foods</h2>
+                    <p className="text-gray-600 font-nunito">Discover our most popular dishes</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
@@ -61,7 +61,7 @@ const TopFoods = () => {
                 <div className="text-center">
                     <Link
                         to="/foods"
-                        className="btn btn-primary"
+                        className="btn btn-primary font-quicksand"
                     >
                         View All Foods
                     </Link>
