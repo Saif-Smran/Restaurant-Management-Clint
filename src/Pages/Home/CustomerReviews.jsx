@@ -44,7 +44,7 @@ const CustomerReviews = () => {
                             <div className="flex justify-center mb-6">
                                 <FaQuoteLeft className="text-4xl text-primary opacity-20" />
                             </div>
-                            <p className="text-base-content/70 mb-6 text-center italic font-nunito">
+                            <p className="text-base-content/70 mb-6 text-center text-xl font-caveat">
                                 "{review.review}"
                             </p>
                             <div className="flex items-center justify-center mb-4">

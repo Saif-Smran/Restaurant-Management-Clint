@@ -34,7 +34,7 @@ const FoodCard = ({ food }) => {
             <div className="p-4">
                 <h3 className="text-xl font-semibold mb-2 text-base-content dark:text-dark-text font-poppins line-clamp-1">{name}</h3>
                 <div className="flex justify-between items-center mb-3">
-                    <span className="text-primary font-bold font-raleway text-lg">
+                    <span className="text-primary font-bold font-poppins text-lg">
                         {formattedPrice}
                     </span>
                     <span className="text-base-content dark:text-gray-400 text-sm font-nunito">

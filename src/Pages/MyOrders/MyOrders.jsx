@@ -133,7 +133,7 @@ const MyOrders = () => {
                                     <td className="align-middle text-center">
                                         <div className="font-bold font-poppins">{order.foodName}</div>
                                     </td>
-                                    <td className="align-middle text-center font-raleway">
+                                    <td className="align-middle text-center font-poppins">
                                         {typeof order.price === 'object' && order.price.$numberInt 
                                             ? order.price.$numberInt 
                                             : order.price}

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 @import "tailwindcss";
+
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark, cupcake;
 }
@@ -36,11 +37,17 @@
     font-family: 'Nunito', system-ui, sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Poppins', sans-serif;
   }
 
-  button, .btn {
+  button,
+  .btn {
     font-family: 'Quicksand', sans-serif;
   }
 
@@ -66,13 +73,6 @@
     font-family: 'Raleway', sans-serif;
   }
 
-  .btn {
-    @apply px-4 py-2 rounded-md transition-colors duration-200;
-  }
-
-  .btn-primary {
-    @apply bg-primary text-white hover:bg-primary-dark;
-  }
 
   .loader {
     @apply border-t-4 border-primary rounded-full animate-spin;
@@ -85,16 +85,43 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-dark-card;
+  background-color: #f3f4f6;
+  /* Tailwind: bg-gray-100 */
+}
+
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-track {
+    background-color: #1e293b;
+    /* Tailwind: dark:bg-dark-card or bg-slate-800 */
+  }
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+  background-color: #d1d5db;
+  /* Tailwind: bg-gray-300 */
+  border-radius: 9999px;
+  /* Tailwind: rounded-full */
+}
+
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background-color: #4b5563;
+    /* Tailwind: dark:bg-gray-600 */
+  }
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-400 dark:bg-gray-500;
+  background-color: #9ca3af;
+  /* Tailwind: bg-gray-400 */
 }
+
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #6b7280;
+    /* Tailwind: dark:bg-gray-500 */
+  }
+}
+
 
 /* Font classes */
 .font-poppins {
@@ -111,4 +138,8 @@
 
 .font-raleway {
   font-family: 'Raleway', sans-serif;
+}
+
+.font-caveat {
+  font-family: 'Caveat', sans-serif;
 }

@@ -2,7 +2,6 @@ import { useState, useContext } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import axios from 'axios';
 import Lottie from 'lottie-react';
 import Swal from 'sweetalert2';
 import axiosInstance from '../../axios/axiosConfig';
@@ -22,41 +21,44 @@ const AddFood = () => {
             name: form.name.value,
             image: form.image.value,
             category: form.category.value,
-            quantity: form.quantity.value,
-            price: form.price.value,
+            quantity: parseInt(form.quantity.value),
+            price: parseInt(form.price.value),
             addedBy: {
                 name: user.displayName,
                 email: user.email
             },
             origin: form.origin.value,
             description: form.description.value,
-            purchaseCount: "0",
+            purchaseCount: 0,
             addedTime: new Date().toISOString()
         };
 
         try {
             const token = await user.getIdToken();
-            await axiosInstance.post('/foods', foodData, {
+            const response = await axiosInstance.post('/foods', foodData, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 }
             });
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Food Added!',
-                text: 'Your food item has been added successfully.',
-                timer: 1500,
-                showConfirmButton: false
-            });
+            if (response.status === 201 || response.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Food Added!',
+                    text: 'Your food item has been added successfully.',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
 
-            navigate('/my-foods');
+                navigate('/my-foods');
+            }
         } catch (err) {
             console.error('Error adding food:', err);
             Swal.fire({
                 icon: 'error',
                 title: 'Failed to Add Food',
-                text: err.message || 'Failed to add food item'
+                text: err.response?.data?.error || err.message || 'Failed to add food item'
             });
         } finally {
             setLoading(false);
@@ -66,7 +68,7 @@ const AddFood = () => {
     return (
         <div className="min-h-screen bg-base-200 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-                <div className="bg-base-200 rounded-xl shadow-2xl overflow-hidden">
+                <div className="bg-base-100 rounded-xl shadow-2xl overflow-hidden">
                     <div className="md:flex">
                         {/* Animation Section */}
                         <div className="md:w-1/2 bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center relative">
@@ -86,13 +88,13 @@ const AddFood = () => {
                         {/* Form Section */}
                         <div className="md:w-1/2 p-8">
                             <div className="text-center mb-8">
-                                <h2 className="text-3xl font-bold text-gray-900 font-poppins">Add New Food</h2>
-                                <p className="mt-2 text-sm text-gray-600 font-nunito">Fill in the details below to add a new food item</p>
+                                <h2 className="text-3xl font-bold text-base-content font-poppins">Add New Food</h2>
+                                <p className="mt-2 text-sm text-secondary-content font-nunito">Fill in the details below to add a new food item</p>
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 font-poppins">
+                                    <label className="block text-sm font-medium text-secondary-content font-poppins">
                                         Food Name
                                     </label>
                                     <input
@@ -104,7 +106,7 @@ const AddFood = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 font-poppins">
+                                    <label className="block text-sm font-medium text-secondary-content font-poppins">
                                         Food Image URL
                                     </label>
                                     <input
@@ -116,7 +118,7 @@ const AddFood = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 font-poppins">
+                                    <label className="block text-sm font-medium text-secondary-content font-poppins">
                                         Category
                                     </label>
                                     <input
@@ -129,7 +131,7 @@ const AddFood = () => {
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 font-poppins">
+                                        <label className="block text-sm font-medium text-secondary-content font-poppins">
                                             Quantity
                                         </label>
                                         <input
@@ -142,7 +144,7 @@ const AddFood = () => {
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 font-poppins">
+                                        <label className="block text-sm font-medium text-secondary-content font-poppins">
                                             Price (BDT)
                                         </label>
                                         <input
@@ -157,7 +159,19 @@ const AddFood = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 font-poppins">
+                                    <label className="block text-sm font-medium text-secondary-content font-poppins">
+                                        Origin
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="origin"
+                                        required
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary font-nunito"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-secondary-content font-poppins">
                                         Description
                                     </label>
                                     <textarea
@@ -169,19 +183,15 @@ const AddFood = () => {
                                     ></textarea>
                                 </div>
 
-                                <div className="bg-gray-50 p-4 rounded-lg">
-                                    <p className="text-sm text-gray-600 mb-2 font-nunito">Adding as:</p>
-                                    <p className="font-semibold font-poppins">{user?.displayName}</p>
-                                    <p className="text-gray-500 font-nunito">{user?.email}</p>
+                                <div className="flex justify-end">
+                                    <button
+                                        type="submit"
+                                        disabled={loading}
+                                        className="btn btn-primary w-full font-quicksand"
+                                    >
+                                        {loading ? 'Adding Food...' : 'Add Food'}
+                                    </button>
                                 </div>
-
-                                <button
-                                    type="submit"
-                                    disabled={loading}
-                                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary font-quicksand"
-                                >
-                                    {loading ? 'Adding Food...' : 'Add Food Item'}
-                                </button>
                             </form>
                         </div>
                     </div>

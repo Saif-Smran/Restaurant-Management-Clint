@@ -13,38 +13,38 @@ export default function Footer() {
             <img src={Logo} alt="RestoEase Logo" className="w-10 h-10" />
             RestoEase
           </Link>
-          <p className="mt-4 text-gray-600">
+          <p className="mt-4 text-base-content font-nunito">
             Your go-to platform for delicious foods and easy ordering. Experience great taste with ease!
           </p>
         </div>
 
         {/* Quick Links */}
         <div>
-          <h3 className="text-xl font-semibold mb-4 border-b border-primary-focus pb-2">Quick Links</h3>
+          <h3 className="text-xl text-base-content font-semibold mb-4 border-b border-primary-focus pb-2">Quick Links</h3>
           <ul className="space-y-2">
             <li>
-              <Link to="/" className="hover:text-primary-focus transition-colors">Home</Link>
+              <Link to="/" className=" text-base-content hover:text-primary-focus transition-colors">Home</Link>
             </li>
             <li>
-              <Link to="/foods" className="hover:text-primary-focus transition-colors">All Foods</Link>
+              <Link to="/foods" className=" text-base-content hover:text-primary-focus transition-colors">All Foods</Link>
             </li>
             <li>
-              <Link to="/gallery" className="hover:text-primary-focus transition-colors">Gallery</Link>
+              <Link to="/gallery" className=" text-base-content hover:text-primary-focus transition-colors">Gallery</Link>
             </li>
             <li>
-              <Link to="/login" className="hover:text-primary-focus transition-colors">Login</Link>
+              <Link to="/login" className=" text-base-content hover:text-primary-focus transition-colors">Login</Link>
             </li>
           </ul>
         </div>
 
         {/* Contact Info */}
         <div>
-          <h3 className="text-xl font-semibold mb-4 border-b border-primary-focus pb-2">Contact Us</h3>
-          <p className="text-gray-600 mb-2">
+          <h3 className="text-xl text-base-content font-semibold mb-4 border-b border-primary-focus pb-2">Contact Us</h3>
+          <p className="text-base-content mb-2">
             Email: <a href="mailto:support@restoease.com" className="underline hover:text-primary-focus">support@restoease.com</a>
           </p>
-          <p className="text-gray-600 mb-4">Phone: +1 (555) 123-4567</p>
-          <div className="flex space-x-4 text-gray-500">
+          <p className="text-base-content mb-4">Phone: +1 (555) 123-4567</p>
+          <div className="flex space-x-4 text-base-content">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-primary-focus transition-colors">
               <FaFacebookF size={20} />
             </a>
@@ -62,8 +62,8 @@ export default function Footer() {
 
         {/* Newsletter Signup */}
         <div>
-          <h3 className="text-xl font-semibold mb-4 border-b border-primary-focus pb-2">Newsletter</h3>
-          <p className="text-gray-600 mb-4">
+          <h3 className="text-xl text-base-content font-semibold mb-4 border-b border-primary-focus pb-2">Newsletter</h3>
+          <p className="text-base-content mb-4">
             Subscribe to get the latest updates and offers.
           </p>
           <form className="flex flex-col sm:flex-row gap-2">
@@ -71,7 +71,7 @@ export default function Footer() {
               type="email"
               placeholder="Your email"
               aria-label="Email for newsletter"
-              className="px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-focus focus:border-primary-focus text-gray-800"
+              className="px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-focus focus:border-primary-focus text-base-content"
             />
             <button
               type="submit"

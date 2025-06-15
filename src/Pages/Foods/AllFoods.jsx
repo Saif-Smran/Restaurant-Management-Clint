@@ -63,7 +63,7 @@ const AllFoods = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-base-300">
             {/* Hero Section with Title */}
             <div 
                 className="bg-gradient-to-r from-primary/90 to-primary text-white py-20 mb-8"

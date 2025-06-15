@@ -141,18 +141,18 @@ const Login = () => {
                 {/* Right: Form */}
                 <div className="w-full md:w-1/2 p-6">
                     <div className="text-center mb-4">
-                        <h2 className="text-2xl font-bold text-gray-700 font-poppins">Login with</h2>
+                        <h2 className="text-2xl font-bold text-base-content font-poppins">Login with</h2>
                     </div>
 
                     <button
                         onClick={handleGoogleLogin}
-                        className="w-full flex items-center justify-center gap-2 bg-base-200 text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition-all duration-200 shadow font-quicksand"
+                        className="w-full flex items-center justify-center gap-2 btn bg-white text-black border-[#e5e5e5] font-quicksand"
                     >
                         <FcGoogle className="text-xl" />
                         <span className="font-medium">Google</span>
                     </button>
 
-                    <div className="my-6 text-center text-gray-500 font-nunito">or use credentials</div>
+                    <div className="my-6 text-center text-secondary-content font-nunito">or use credentials</div>
 
                     <form onSubmit={handleLogin}>
                         <div className="space-y-4">
@@ -161,14 +161,14 @@ const Login = () => {
                                 type="email"
                                 required
                                 placeholder="Email"
-                                className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
+                                className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-base-content focus:outline-none shadow font-nunito"
                             />
                             <input
                                 name="password"
                                 type="password"
                                 required
                                 placeholder="Password"
-                                className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-gray-800 focus:outline-none shadow font-nunito"
+                                className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-base-content focus:outline-none shadow font-nunito"
                             />
                         </div>
 

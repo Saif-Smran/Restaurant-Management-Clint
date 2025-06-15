@@ -52,9 +52,9 @@ const FoodDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-base-200 py-12">
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto bg-base-200 rounded-lg shadow-lg overflow-hidden">
+        <div className="max-w-6xl mx-auto bg-base-100 rounded-lg shadow-lg overflow-hidden">
           <div className="md:flex">
             {/* Image */}
             <div className="md:w-1/2">
@@ -68,13 +68,13 @@ const FoodDetails = () => {
             {/* Details */}
             <div className="md:w-1/2 p-6 md:p-8 space-y-6">
               <div className="flex justify-between items-start">
-                <h1 className="text-3xl font-bold text-gray-800 font-poppins">{food.name}</h1>
-                <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-raleway">
+                <h1 className="text-3xl font-bold text-base-content font-poppins">{food.name}</h1>
+                <span className="bg-primary text-white font-bold px-3 py-1 rounded-full text-sm font-raleway">
                   {food.category}
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 text-gray-600">
+              <div className="grid grid-cols-2 gap-4 text-base-content font-nunito">
                 <InfoRow icon={<FaGlobe />} label={`Origin: ${food.origin}`} />
                 <InfoRow icon={<FaBox />} label={`Available: ${food.quantity}`} />
                 <InfoRow icon={<FaShoppingBag />} label={`Purchased: ${food.purchaseCount} times`} />
@@ -83,7 +83,7 @@ const FoodDetails = () => {
 
               <div>
                 <h3 className="text-xl font-semibold mb-2 font-poppins">Added By</h3>
-                <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                <div className="bg-base-200 p-4 rounded-lg space-y-2">
                   <InfoRow icon={<FaUser />} label={food?.addedBy?.name} />
                   <InfoRow icon={<FaEnvelope />} label={food?.addedBy?.email} />
                 </div>
@@ -91,7 +91,7 @@ const FoodDetails = () => {
 
               <div>
                 <h3 className="text-xl font-semibold mb-2 font-poppins">Description</h3>
-                <p className="text-gray-600 font-nunito">{food.description}</p>
+                <p className="text-base-content font-nunito">{food.description}</p>
               </div>
 
               <Link

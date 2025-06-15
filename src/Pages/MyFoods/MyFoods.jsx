@@ -84,7 +84,7 @@ const MyFoods = () => {
     if (error) return <div className="text-center text-red-500 py-8 font-poppins">Error: {error}</div>;
 
     return (
-        <div className="container mx-auto py-8 px-4">
+        <div className="container mx-auto py-8 px-4 min-h-[46vh]">
             <h1 className="text-3xl font-bold text-center mb-8 font-poppins">My Foods</h1>
 
             {foods.length === 0 ? (
@@ -118,7 +118,7 @@ const MyFoods = () => {
                                         <div className="font-bold font-poppins">{food.name}</div>
                                     </td>
                                     <td className="align-middle text-center font-raleway">{food.category}</td>                                    
-                                    <td className="align-middle text-center font-raleway">{typeof food.price === 'object' && food.price.$numberInt ? food.price.$numberInt : food.price}</td>
+                                    <td className="align-middle text-center font-poppins">{typeof food.price === 'object' && food.price.$numberInt ? food.price.$numberInt : food.price}</td>
                                     <td className="align-middle text-center ">
                                         <div className="flex flex-wrap gap-2 justify-center items-center">
                                             <Link
