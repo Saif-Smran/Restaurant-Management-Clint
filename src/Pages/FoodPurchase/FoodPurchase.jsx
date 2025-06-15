@@ -56,6 +56,7 @@ const FoodPurchase = () => {
             }
             // Don't allow negative or zero quantity
             if (numValue <= 0) {
+                toast.error('Quantity must be greater than 0');
                 return;
             }
         }
@@ -76,6 +77,14 @@ const FoodPurchase = () => {
         if (foodDetails.quantity <= 0) return false;
         if (foodDetails.addedBy === user?.email) return false;
         return isQuantityValid();
+    };
+
+    const getPurchaseButtonText = () => {
+        if (!foodDetails) return 'Loading...';
+        if (foodDetails.quantity <= 0) return 'Out of Stock';
+        if (foodDetails.addedBy === user?.email) return 'Cannot Purchase Own Item';
+        if (!isQuantityValid()) return 'Invalid Quantity';
+        return 'Place Order';
     };
 
     const calculateTotal = () => {
@@ -184,7 +193,7 @@ const FoodPurchase = () => {
                             {foodDetails?.quantity <= 0 && (
                                 <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg">
                                     <p className="font-semibold">⚠️ Out of Stock</p>
-                                    <p className="text-sm">This item is currently unavailable</p>
+                                    <p className="text-sm">This item is currently unavailable for purchase</p>
                                 </div>
                             )}
 
@@ -199,7 +208,9 @@ const FoodPurchase = () => {
                                 <div className="bg-gray-50 p-4 rounded-lg">
                                     <div className="flex justify-between items-center mb-2">
                                         <span className="text-gray-600">Available Quantity:</span>
-                                        <span className="font-semibold">{foodDetails.quantity}</span>
+                                        <span className={`font-semibold ${foodDetails.quantity <= 0 ? 'text-red-600' : 'text-green-600'}`}>
+                                            {foodDetails.quantity}
+                                        </span>
                                     </div>
                                     <div className="flex justify-between items-center">
                                         <span className="text-gray-600">Unit Price:</span>
@@ -215,7 +226,8 @@ const FoodPurchase = () => {
                                         <button
                                             type="button"
                                             onClick={() => handleInputChange({ target: { name: 'quantity', value: Math.max(1, parseInt(formData.quantity) - 1) } })}
-                                            className="bg-gray-200 p-2 rounded-l-md hover:bg-gray-300"
+                                            className="bg-gray-200 p-2 rounded-l-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                            disabled={foodDetails.quantity <= 0}
                                         >
                                             -
                                         </button>
@@ -228,15 +240,22 @@ const FoodPurchase = () => {
                                             min="1"
                                             max={foodDetails.quantity}
                                             className="w-20 text-center border-y border-gray-300 py-2 input-no-arrow"
+                                            disabled={foodDetails.quantity <= 0}
                                         />
                                         <button
                                             type="button"
                                             onClick={() => handleInputChange({ target: { name: 'quantity', value: Math.min(foodDetails.quantity, parseInt(formData.quantity) + 1) } })}
-                                            className="bg-gray-200 p-2 rounded-r-md hover:bg-gray-300"
+                                            className="bg-gray-200 p-2 rounded-r-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                            disabled={foodDetails.quantity <= 0}
                                         >
                                             +
                                         </button>
                                     </div>
+                                    {foodDetails.quantity > 0 && (
+                                        <p className="mt-2 text-sm text-gray-500">
+                                            Maximum order quantity: {foodDetails.quantity}
+                                        </p>
+                                    )}
                                 </div>
 
                                 <div className="bg-gray-50 p-4 rounded-lg">
@@ -264,7 +283,7 @@ const FoodPurchase = () => {
                                                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                                             }`}
                                     >
-                                        {canPurchase() ? 'Place Order' : 'Cannot Purchase'}
+                                        {getPurchaseButtonText()}
                                     </button>
                                 </div>
                             </form>
