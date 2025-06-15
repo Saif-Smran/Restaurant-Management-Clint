@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
-import axios from 'axios';
+import axiosInstance from '../../axios/axiosConfig';
 import Swal from 'sweetalert2';
 
 const MyFoods = () => {
@@ -18,7 +18,7 @@ const MyFoods = () => {
             try {
                 setLoading(true);
                 const token = await user.getIdToken();
-                const { data } = await axios.get(`http://localhost:3000/foods/user/${user.email}`, {
+                const { data } = await axiosInstance.get(`/foods/user/${user.email}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -54,7 +54,7 @@ const MyFoods = () => {
 
             if (result.isConfirmed) {
                 const token = await user.getIdToken();
-                await axios.delete(`http://localhost:3000/foods/${id}`, {
+                await axiosInstance.delete(`/foods/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

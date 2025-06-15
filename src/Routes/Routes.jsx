@@ -14,6 +14,8 @@ import AddFood from '../Pages/AddFood/AddFood';
 import MyFoods from '../Pages/MyFoods/MyFoods';
 import UpdateFood from '../Pages/MyFoods/UpdateFood';
 import MyOrders from '../Pages/MyOrders/MyOrders';
+import Unauthorized from '../Pages/ErrorPages/Unauthorized';
+import Forbidden from '../Pages/ErrorPages/Forbidden';
 
 const router = createBrowserRouter([
     {
@@ -52,14 +54,16 @@ const router = createBrowserRouter([
                         <FoodPurchase />
                     </PrivateRoute>
                 ),
-            },            {
+            },
+            {
                 path: 'add-food',
                 element: (
                     <PrivateRoute>
                         <AddFood />
                     </PrivateRoute>
                 ),
-            },            {
+            },
+            {
                 path: 'my-foods',
                 element: (
                     <PrivateRoute>
@@ -82,6 +86,14 @@ const router = createBrowserRouter([
                         <MyOrders />
                     </PrivateRoute>
                 ),
+            },
+            {
+                path: 'unauthorized',
+                element: <Unauthorized />,
+            },
+            {
+                path: 'forbidden',
+                element: <Forbidden />,
             }
         ]
     },

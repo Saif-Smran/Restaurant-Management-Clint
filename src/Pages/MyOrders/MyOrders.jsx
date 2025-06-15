@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
-import axios from 'axios';
 import { FaTrash } from 'react-icons/fa';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import axiosInstance from '../../axios/axiosConfig';
 
 const MyOrders = () => {
     const { user } = useContext(AuthContext);
@@ -18,7 +18,7 @@ const MyOrders = () => {
             try {
                 setLoading(true);
                 const token = await user.getIdToken();
-                const { data } = await axios.get(`http://localhost:3000/orders/${user.email}`, {
+                const { data } = await axiosInstance.get(`/orders/${user.email}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -28,7 +28,7 @@ const MyOrders = () => {
                 const ordersWithFoodDetails = await Promise.all(
                     data.map(async (order) => {
                         try {
-                            const { data: foodData } = await axios.get(`http://localhost:3000/foods/${order.foodId}`);
+                            const { data: foodData } = await axiosInstance.get(`/foods/${order.foodId}`);
                             return {
                                 ...order,
                                 food: foodData
@@ -70,7 +70,7 @@ const MyOrders = () => {
 
             if (result.isConfirmed) {
                 const token = await user.getIdToken();
-                await axios.delete(`http://localhost:3000/orders/${orderId}`, {
+                await axiosInstance.delete(`/orders/${orderId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import Lottie from 'lottie-react';
 import loginAnimation from '../../assets/login-animation.json';
 import loginBg from '../../assets/Login.jpg';
-import axios from 'axios';
+import axiosInstance from '../../axios/axiosConfig';
 
 const Login = () => {
     const { login, googleLogin, setLoading, user } = useContext(AuthContext);
@@ -20,7 +20,7 @@ const Login = () => {
         try {
             // First check if user exists
             const token = await user?.getIdToken();
-            const checkUser = await axios.get(`http://localhost:3000/users/${userData.email}`, {
+            const checkUser = await axiosInstance.get(`/users/${userData.email}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -34,7 +34,7 @@ const Login = () => {
             // If user not found (404) or other error, try to create new user
             if (error.response?.status === 404) {
                 try {
-                    const response = await axios.post('http://localhost:3000/users', userData);
+                    const response = await axiosInstance.post('/users', userData);
                     console.log('New user created:', response.data);
                     return response.data;
                 } catch (createError) {

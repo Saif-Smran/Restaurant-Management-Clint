@@ -6,6 +6,8 @@ import axios from 'axios';
 import Lottie from 'lottie-react';
 import foodAnimation from '../../assets/animations/food-loading.json';
 import orderAnimation from '../../assets/animations/order-success.json';
+import axiosInstance from '../../axios/axiosConfig';
+import Swal from 'sweetalert2';
 
 const FoodPurchase = () => {
     const { user } = useContext(AuthContext);
@@ -24,12 +26,12 @@ const FoodPurchase = () => {
     useEffect(() => {
         const fetchFoodDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/foods/${id}`);
-                setFoodDetails(response.data);
+                const { data } = await axiosInstance.get(`/foods/${id}`);
+                setFoodDetails(data);
                 setFormData(prev => ({
                     ...prev,
-                    foodName: response.data.name,
-                    price: response.data.price
+                    foodName: data.name,
+                    price: data.price
                 }));
             } catch (err) {
                 setError('Failed to fetch food details');
@@ -89,72 +91,37 @@ const FoodPurchase = () => {
         }
 
         try {
-            // Validate inputs
-            const quantity = parseInt(formData.quantity);
-            if (isNaN(quantity) || quantity <= 0) {
-                toast.error('Please enter a valid quantity');
-                return;
-            }
-
-            if (quantity > foodDetails.quantity) {
-                toast.error(`Cannot order more than available quantity (${foodDetails.quantity})`);
-                return;
-            }
-
-            // Create order data
-            const orderData = {
-                foodId: id,
-                purchasedFood_Id: foodDetails._id,
+            const token = await user.getIdToken();
+            await axiosInstance.post('/orders', {
+                foodId: foodDetails._id,
                 foodName: foodDetails.name,
-                price: parseFloat(foodDetails.price),
-                quantity: quantity,
-                buyerName: user?.displayName,
-                buyerEmail: user?.email,
-                orderDate: Date.now(),
-            };
-
-            // First verify the current quantity is still available
-            const currentFoodCheck = await axios.get(`http://localhost:3000/foods/${id}`);
-            if (currentFoodCheck.data.quantity < quantity) {
-                toast.error('Sorry, the requested quantity is no longer available');
-                return;
-            }
-
-            // Create the order
-            const orderResponse = await axios.post('http://localhost:3000/orders', orderData);
-            
-            if (orderResponse.status === 200 || orderResponse.status === 201) {
-                // Calculate new quantity and purchases
-                const newQuantity = foodDetails.quantity - quantity;
-                const newPurchases = (foodDetails.purchases || 0) + 1;
-                
-                // Only send necessary update data
-                const updateData = {
-                    quantity: newQuantity,
-                    purchases: newPurchases
-                };
-
-                const updateResponse = await axios.put(`http://localhost:3000/foods/${id}`, updateData);
-
-                if (updateResponse.status === 200) {
-                    setShowSuccessAnimation(true);
-                    toast.success('Order placed successfully!');
-                    setTimeout(() => {
-                        navigate('/my-orders');
-                    }, 2000);
-                } else {
-                    throw new Error('Failed to update food quantity');
+                price: foodDetails.price,
+                quantity: parseInt(formData.quantity),
+                buyerName: user.displayName,
+                buyerEmail: user.email,
+                orderDate: Date.now()
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
                 }
-            }
-        } catch (error) {
-            let errorMessage = 'Failed to place order. Please try again.';
-            if (error.response?.data?.error) {
-                errorMessage = error.response.data.error;
-            } else if (error.message) {
-                errorMessage = error.message;
-            }
-            toast.error(errorMessage);
-            console.error('Order error:', error);
+            });
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Order Placed!',
+                text: 'Your order has been placed successfully.',
+                timer: 1500,
+                showConfirmButton: false
+            });
+
+            navigate('/my-orders');
+        } catch (err) {
+            console.error('Error placing order:', err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Order Failed',
+                text: err.message || 'Failed to place order'
+            });
         }
     };
 

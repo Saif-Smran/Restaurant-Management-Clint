@@ -13,7 +13,7 @@ import {
 import { AuthContext } from '../Provider/AuthProvider';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../assets/Logo.png';
-import axios from 'axios';
+import axiosInstance from '../axios/axiosConfig';
 
 const navbarLinks = [
   { to: '/', label: 'Home', Icon: HiHome },
@@ -31,7 +31,7 @@ export default function Navbar() {
   const fetchUserData = async (email) => {
     try {
       const token = await user?.getIdToken();
-      const { data } = await axios.get(`http://localhost:3000/users/${email}`, {
+      const { data } = await axiosInstance.get(`/users/${email}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

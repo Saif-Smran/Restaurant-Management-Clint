@@ -1,24 +1,25 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import axiosInstance from '../../axios/axiosConfig';
 import FoodCard from '../../Components/FoodCard';
 
 const TopFoods = () => {
-    const [topFoods, setTopFoods] = useState([]);
+    const [foods, setFoods] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchTopFoods = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/foods');
+                const { data } = await axiosInstance.get('/foods');
                 // Sort by purchaseCount and take top 6
-                const sortedFoods = response.data
-                    .sort((a, b) => b.purchaseCount - a.purchaseCount)
+                const sortedFoods = data
+                    .sort((a, b) => (b.purchaseCount || 0) - (a.purchaseCount || 0))
                     .slice(0, 6);
-                setTopFoods(sortedFoods);
+                setFoods(sortedFoods);
                 setLoading(false);
             } catch (err) {
+                console.error('Error fetching top foods:', err);
                 setError('Failed to load top foods');
                 setLoading(false);
             }
@@ -29,48 +30,42 @@ const TopFoods = () => {
 
     if (loading) {
         return (
-            <div className="min-h-[400px] flex items-center justify-center">
-                <div className="loader w-16 h-16 border-t-4 border-primary rounded-full animate-spin"></div>
+            <div className="flex justify-center items-center min-h-[400px]">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-orange-500"></div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="min-h-[400px] flex items-center justify-center">
-                <div className="text-center text-red-600">
-                    <p className="text-xl font-semibold">{error}</p>
-                    <button 
-                        onClick={() => window.location.reload()} 
-                        className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark"
-                    >
-                        Retry
-                    </button>
-                </div>
+            <div className="text-center py-8">
+                <p className="text-red-500">{error}</p>
             </div>
         );
     }
 
     return (
-        <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-gray-800 mb-4">Top Selling Foods</h2>
-                <p className="text-gray-600">Our most popular dishes loved by customers</p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                {topFoods.map(food => (
-                    <FoodCard key={food._id} food={food} />
-                ))}
-            </div>
+        <section className="py-16 bg-gray-50">
+            <div className="container mx-auto px-4">
+                <div className="text-center mb-12">
+                    <h2 className="text-3xl font-bold mb-4">Top Foods</h2>
+                    <p className="text-gray-600">Discover our most popular dishes</p>
+                </div>
 
-            <div className="text-center">
-                <Link 
-                    to="/foods"
-                    className="inline-block px-8 py-3 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-300"
-                >
-                    See All Foods
-                </Link>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                    {foods.map(food => (
+                        <FoodCard key={food._id} food={food} />
+                    ))}
+                </div>
+
+                <div className="text-center">
+                    <Link
+                        to="/foods"
+                        className="btn btn-primary"
+                    >
+                        View All Foods
+                    </Link>
+                </div>
             </div>
         </section>
     );

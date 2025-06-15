@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../axios/axiosConfig';
 import FoodCard from '../../Components/FoodCard';
 import { FaSearch } from 'react-icons/fa';
 
@@ -13,12 +13,12 @@ const AllFoods = () => {
     useEffect(() => {
         const fetchFoods = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/foods');
-                setFoods(response.data);
-                setFilteredFoods(response.data);
+                const { data } = await axiosInstance.get('/foods');
+                setFoods(data);
+                setFilteredFoods(data);
                 setLoading(false);
             } catch (err) {
-                setError('Failed to load foods', err.message);
+                setError('Failed to load foods');
                 setLoading(false);
             }
         };

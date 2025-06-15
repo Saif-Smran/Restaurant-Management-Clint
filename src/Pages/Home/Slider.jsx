@@ -3,7 +3,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../axios/axiosConfig';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -17,7 +17,7 @@ const Slider = () => {
     useEffect(() => {
         const fetchSlides = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/slides');
+                const response = await axiosInstance.get('/slides');
                 setSlides(response.data);
                 setLoading(false);
             } catch (err) {

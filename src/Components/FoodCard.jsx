@@ -24,7 +24,7 @@ const FoodCard = ({ food }) => {
             <div className="p-4">
                 <h3 className="text-xl font-semibold mb-2 text-gray-800">{name}</h3>
                 <div className="flex justify-between items-center mb-3">
-                    <span className="text-primary font-bold">${price}</span>
+                    <span className="text-primary font-bold">{price}<span className='text-black text-xs font-normal'>(BDT)</span></span>
                     <span className="text-gray-600 text-sm">
                         {purchaseCount} {purchaseCount === 1 ? 'Purchase' : 'Purchases'}
                     </span>

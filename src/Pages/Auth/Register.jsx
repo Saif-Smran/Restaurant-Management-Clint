@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import Lottie from 'lottie-react';
 import loginAnimation from '../../assets/login-animation.json';
 import registerBg from '../../assets/Register.jpg';
-import axios from 'axios';
+import axiosInstance from '../../axios/axiosConfig';
 
 const Register = () => {
     const { CreatUser, updateUser, googleLogin } = useContext(AuthContext);
@@ -37,7 +37,7 @@ const Register = () => {
     const saveUserToDb = async (userData) => {
         try {
             // Try to create new user
-            const response = await axios.post('http://localhost:3000/users', userData);
+            const response = await axiosInstance.post('/users', userData);
             console.log('User created successfully:', response.data);
             return response.data;
         } catch (error) {

@@ -4,12 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import Lottie from 'lottie-react';
+import Swal from 'sweetalert2';
+import axiosInstance from '../../axios/axiosConfig';
 // import addFoodAnimation from '../../assets/animations/add-food.json';
 
 const AddFood = () => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false); const handleSubmit = async (e) => {
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
@@ -31,16 +35,29 @@ const AddFood = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:3000/foods', foodData);
+            const token = await user.getIdToken();
+            await axiosInstance.post('/foods', foodData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
 
-            if (response.status === 201) {
-                toast.success('Food item added successfully!');
-                form.reset();
-                navigate('/foods'); // Navigate to foods page after successful addition
-            }
-        } catch (error) {
-            console.error('Error adding food:', error);
-            toast.error(error.response?.data?.error || 'Failed to add food item');
+            Swal.fire({
+                icon: 'success',
+                title: 'Food Added!',
+                text: 'Your food item has been added successfully.',
+                timer: 1500,
+                showConfirmButton: false
+            });
+
+            navigate('/my-foods');
+        } catch (err) {
+            console.error('Error adding food:', err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed to Add Food',
+                text: err.message || 'Failed to add food item'
+            });
         } finally {
             setLoading(false);
         }
@@ -137,18 +154,6 @@ const AddFood = () => {
                                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
                                         />
                                     </div>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700">
-                                        Food Origin
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="origin"
-                                        required
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                                    />
                                 </div>
 
                                 <div>

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
 import {
   FaShoppingCart,
   FaUtensils,
@@ -10,6 +9,7 @@ import {
   FaBox,
   FaShoppingBag,
 } from 'react-icons/fa';
+import axiosInstance from '../../axios/axiosConfig';
 
 const FoodDetails = () => {
   const { id } = useParams();
@@ -20,7 +20,7 @@ const FoodDetails = () => {
   useEffect(() => {
     const fetchFood = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3000/foods/${id}`);
+        const { data } = await axiosInstance.get(`/foods/${id}`);
         setFood(data);
       } catch (err) {
         setError('Failed to load food details', err.message);
