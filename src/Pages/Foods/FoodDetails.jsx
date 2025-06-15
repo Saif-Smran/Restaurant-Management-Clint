@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import {
   FaShoppingCart,
   FaUtensils,
@@ -52,59 +53,71 @@ const FoodDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-base-200 py-12">
+    <div className="min-h-screen bg-base-200 py-8 sm:py-12">
+      <Helmet>
+        <title>{food ? `${food.name} | RestoEase` : 'Food Details | RestoEase'}</title>
+      </Helmet>
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto bg-base-100 rounded-lg shadow-lg overflow-hidden">
-          <div className="md:flex">
-            {/* Image */}
-            <div className="md:w-1/2">
+          <div className="flex flex-col lg:flex-row">
+            {/* Image Section */}
+            <div className="w-full lg:w-1/2">
               <img
                 src={food.image}
                 alt={food.name}
-                className="w-full h-[400px] object-cover"
+                className="w-full h-[300px] sm:h-[400px] lg:h-full object-cover"
               />
             </div>
 
-            {/* Details */}
-            <div className="md:w-1/2 p-6 md:p-8 space-y-6">
-              <div className="flex justify-between items-start">
-                <h1 className="text-3xl font-bold text-base-content font-poppins">{food.name}</h1>
-                <span className="bg-primary text-white font-bold px-3 py-1 rounded-full text-sm font-raleway">
-                  {food.category}
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 text-base-content font-nunito">
-                <InfoRow icon={<FaGlobe />} label={`Origin: ${food.origin}`} />
-                <InfoRow icon={<FaBox />} label={`Available: ${food.quantity}`} />
-                <InfoRow icon={<FaShoppingBag />} label={`Purchased: ${food.purchaseCount} times`} />
-                <InfoRow icon={<FaUtensils />} label={`Price: ৳${food.price}`} />
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold mb-2 font-poppins">Added By</h3>
-                <div className="bg-base-200 p-4 rounded-lg space-y-2">
-                  <InfoRow icon={<FaUser />} label={food?.addedBy?.name} />
-                  <InfoRow icon={<FaEnvelope />} label={food?.addedBy?.email} />
+            {/* Details Section */}
+            <div className="w-full lg:w-1/2 p-6 sm:p-8">
+              <h1 className="text-2xl sm:text-3xl font-bold text-base-content mb-4">{food.name}</h1>
+              
+              <div className="space-y-4 mb-6">
+                <div className="flex items-center gap-2">
+                  <FaUtensils className="text-primary" />
+                  <span className="text-base-content">{food.category}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaGlobe className="text-primary" />
+                  <span className="text-base-content">{food.origin}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaBox className="text-primary" />
+                  <span className="text-base-content">Available: {food.quantity} units</span>
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-xl font-semibold mb-2 font-poppins">Description</h3>
-                <p className="text-base-content font-nunito">{food.description}</p>
+              <p className="text-2xl sm:text-3xl font-bold text-primary mb-6">
+                ${food.price}
+              </p>
+
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-2">Description</h3>
+                <p className="text-base-content/80">{food.description}</p>
+              </div>
+
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-2">Added By</h3>
+                <div className="flex items-center gap-3">
+                  <img
+                    src={food.addedBy?.photoURL || '/default-avatar.png'}
+                    alt={food.addedBy?.name}
+                    className="w-10 h-10 rounded-full"
+                  />
+                  <div>
+                    <p className="font-medium">{food.addedBy?.name}</p>
+                    <p className="text-sm text-base-content/70">{food.addedBy?.email}</p>
+                  </div>
+                </div>
               </div>
 
               <Link
-                to={food.quantity > 0 ? `/food/purchase/${food._id}` : '#'}
-                onClick={(e) => food.quantity === 0 && e.preventDefault()}
-                className={`w-full flex items-center justify-center gap-2 py-3 rounded-lg text-white transition-colors font-quicksand ${
-                  food.quantity > 0
-                    ? 'bg-primary hover:bg-primary-dark'
-                    : 'bg-gray-400 cursor-not-allowed'
-                }`}
+                to={`/food/purchase/${food._id}`}
+                className="btn btn-primary w-full sm:w-auto flex items-center justify-center gap-2"
               >
                 <FaShoppingCart />
-                {food.quantity > 0 ? 'Purchase Now' : 'Out of Stock'}
+                Purchase Now
               </Link>
             </div>
           </div>

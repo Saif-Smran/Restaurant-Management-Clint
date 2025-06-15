@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
-import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaEye, FaTrash, FaPlus } from 'react-icons/fa';
 import axiosInstance from '../../axios/axiosConfig';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const MyFoods = () => {
     const { user } = useContext(AuthContext);
@@ -77,76 +78,74 @@ const MyFoods = () => {
         }
     };
 
-    if (loading) return <div className="flex justify-center items-center min-h-[50vh]">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-orange-500"></div>
-    </div>;
-
-    if (error) return <div className="text-center text-red-500 py-8 font-poppins">Error: {error}</div>;
-
     return (
-        <div className="container mx-auto py-8 px-4 min-h-[46vh]">
-            <h1 className="text-3xl font-bold text-center mb-8 font-poppins">My Foods</h1>
+        <div className="min-h-screen bg-base-200 py-8 sm:py-12">
+            <Helmet>
+                <title>My Foods | RestoEase</title>
+            </Helmet>
+            <div className="container mx-auto px-4">
+                <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-center sm:text-left mb-4 sm:mb-0">My Foods</h1>
+                    <Link to="/add-food" className="btn btn-primary flex items-center gap-2 w-full sm:w-auto">
+                        <FaPlus /> Add New Food
+                    </Link>
+                </div>
 
-            {foods.length === 0 ? (
-                <div className="text-center py-8">
-                    <p className="text-lg mb-4 font-nunito">You haven't added any food items yet.</p>
-                    <Link to="/add-food" className="btn btn-primary font-quicksand">Add Your First Food</Link>
-                </div>
-            ) : (
-                <div className="overflow-x-auto max-w-11/12 mx-auto">
-                    <table className="table w-full">
-                        <thead>
-                            <tr className="bg-base-200">
-                                <th className='text-center font-poppins'>Image</th>
-                                <th className='text-center font-poppins'>Name</th>
-                                <th className='text-center font-poppins'>Category</th>
-                                <th className='text-center font-poppins'>Price(BDT)</th>
-                                <th className='text-center font-poppins'>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {foods.map((food) => (
-                                <tr key={food._id} className="hover">
-                                    <td className="align-middle text-center">
-                                        <div className="avatar">
-                                            <div className="mask mask-squircle w-12 h-12">
-                                                <img src={food.image} alt={food.name} />
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="align-middle text-center">
-                                        <div className="font-bold font-poppins">{food.name}</div>
-                                    </td>
-                                    <td className="align-middle text-center font-raleway">{food.category}</td>                                    
-                                    <td className="align-middle text-center font-poppins">{typeof food.price === 'object' && food.price.$numberInt ? food.price.$numberInt : food.price}</td>
-                                    <td className="align-middle text-center ">
-                                        <div className="flex flex-wrap gap-2 justify-center items-center">
-                                            <Link
-                                                to={`/food/${food._id}`}
-                                                className="btn btn-sm btn-info font-quicksand"
-                                            >
-                                                <FaEye /> View
-                                            </Link>
-                                            <Link
-                                                to={`/update-food/${food._id}`}
-                                                className="btn btn-sm btn-primary font-quicksand"
-                                            >
-                                                <FaEdit /> Update
-                                            </Link>
-                                            <button
-                                                onClick={() => handleDelete(food._id)}
-                                                className="btn btn-sm btn-error font-quicksand"
-                                            >
-                                                <FaTrash /> Delete
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+                {loading ? (
+                    <div className="flex justify-center items-center min-h-[400px]">
+                        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary"></div>
+                    </div>
+                ) : error ? (
+                    <div className="text-center py-8">
+                        <p className="text-red-500">{error}</p>
+                    </div>
+                ) : foods.length === 0 ? (
+                    <div className="text-center py-12 bg-base-100 rounded-lg shadow-md">
+                        <p className="text-xl text-base-content/70 mb-4">You haven't added any foods yet.</p>
+                        <Link to="/add-food" className="btn btn-primary">
+                            Add Your First Food
+                        </Link>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                        {foods.map(food => (
+                            <div key={food._id} className="bg-base-100 rounded-lg shadow-md overflow-hidden">
+                                <div className="relative">
+                                    <img
+                                        src={food.image}
+                                        alt={food.name}
+                                        className="w-full h-48 object-cover"
+                                    />
+                                    <div className="absolute top-4 right-4 flex gap-2">
+                                        <Link
+                                            to={`/update-food/${food._id}`}
+                                            className="btn btn-sm btn-circle btn-primary"
+                                            title="Edit"
+                                        >
+                                            <FaEdit />
+                                        </Link>
+                                        <button
+                                            onClick={() => handleDelete(food._id)}
+                                            className="btn btn-sm btn-circle btn-error"
+                                            title="Delete"
+                                        >
+                                            <FaTrash />
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="p-4 sm:p-6">
+                                    <h3 className="text-xl font-bold mb-2">{food.name}</h3>
+                                    <p className="text-base-content/70 mb-2">{food.category}</p>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-lg font-semibold text-primary">${food.price}</span>
+                                        <span className="text-sm text-base-content/70">Quantity: {food.quantity}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

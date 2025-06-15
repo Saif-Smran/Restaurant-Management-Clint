@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import Lottie from 'lottie-react';
 import Swal from 'sweetalert2';
 import axiosInstance from '../../axios/axiosConfig';
+import { Helmet } from 'react-helmet';
 // import addFoodAnimation from '../../assets/animations/add-food.json';
 
 const AddFood = () => {
@@ -67,6 +68,9 @@ const AddFood = () => {
 
     return (
         <div className="min-h-screen bg-base-200 py-12 px-4 sm:px-6 lg:px-8">
+            <Helmet>
+                <title>Add New Food | RestoEase</title>
+            </Helmet>
             <div className="max-w-4xl mx-auto">
                 <div className="bg-base-100 rounded-xl shadow-2xl overflow-hidden">
                     <div className="md:flex">
@@ -89,12 +93,12 @@ const AddFood = () => {
                         <div className="md:w-1/2 p-8">
                             <div className="text-center mb-8">
                                 <h2 className="text-3xl font-bold text-base-content font-poppins">Add New Food</h2>
-                                <p className="mt-2 text-sm text-secondary-content font-nunito">Fill in the details below to add a new food item</p>
+                                <p className="mt-2 text-sm text-base-content font-nunito">Fill in the details below to add a new food item</p>
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
-                                    <label className="block text-sm font-medium text-secondary-content font-poppins">
+                                    <label className="block text-sm font-medium text-base-content font-poppins">
                                         Food Name
                                     </label>
                                     <input
@@ -106,7 +110,7 @@ const AddFood = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-secondary-content font-poppins">
+                                    <label className="block text-sm font-medium text-base-content font-poppins">
                                         Food Image URL
                                     </label>
                                     <input
@@ -118,7 +122,7 @@ const AddFood = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-secondary-content font-poppins">
+                                    <label className="block text-sm font-medium text-base-content font-poppins">
                                         Category
                                     </label>
                                     <input
@@ -131,7 +135,7 @@ const AddFood = () => {
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-secondary-content font-poppins">
+                                        <label className="block text-sm font-medium text-base-content font-poppins">
                                             Quantity
                                         </label>
                                         <input
@@ -144,7 +148,7 @@ const AddFood = () => {
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium text-secondary-content font-poppins">
+                                        <label className="block text-sm font-medium text-base-content font-poppins">
                                             Price (BDT)
                                         </label>
                                         <input
@@ -159,7 +163,7 @@ const AddFood = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-secondary-content font-poppins">
+                                    <label className="block text-sm font-medium text-base-content font-poppins">
                                         Origin
                                     </label>
                                     <input
@@ -171,7 +175,7 @@ const AddFood = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-secondary-content font-poppins">
+                                    <label className="block text-sm font-medium text-base-content font-poppins">
                                         Description
                                     </label>
                                     <textarea

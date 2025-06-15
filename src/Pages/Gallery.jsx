@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import axiosInstance from '../axios/axiosConfig';
 
 const Gallery = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -51,7 +53,10 @@ const Gallery = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-base-200 py-8">
+            <Helmet>
+                <title>Gallery | RestoEase</title>
+            </Helmet>
             {/* Hero Section with Title */}
             <div 
                 className="h-[40vh] bg-cover bg-center flex items-center justify-center"

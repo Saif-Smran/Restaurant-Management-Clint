@@ -158,9 +158,9 @@ export default function Navbar() {
                       </span>
                     )}
                   </div>
-                  <NavLink to="/my-foods" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 ">My Foods</NavLink>
-                  <NavLink to="/add-food" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">Add Food</NavLink>
-                  <NavLink to="/my-orders" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">My Orders</NavLink>
+                  <NavLink to="/my-foods" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-base-300">My Foods</NavLink>
+                  <NavLink to="/add-food" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-base-300">Add Food</NavLink>
+                  <NavLink to="/my-orders" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-base-300">My Orders</NavLink>
                   {userData?.role === 'admin' && (
                     <NavLink to="/admin/dashboard" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
                       Admin Dashboard

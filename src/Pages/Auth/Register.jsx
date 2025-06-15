@@ -8,6 +8,7 @@ import Lottie from 'lottie-react';
 import loginAnimation from '../../assets/login-animation.json';
 import registerBg from '../../assets/Register.jpg';
 import axiosInstance from '../../axios/axiosConfig';
+import { Helmet } from 'react-helmet';
 
 const Register = () => {
     const { CreatUser, updateUser, googleLogin } = useContext(AuthContext);
@@ -140,10 +141,10 @@ const Register = () => {
     };
 
     return (
-        <div
-            className="min-h-screen flex items-center justify-center bg-cover bg-center"
-            style={{ backgroundImage: `url(${registerBg})` }}
-        >
+        <div className="min-h-screen flex items-center justify-center bg-base-200 py-12 px-4">
+            <Helmet>
+                <title>Register | RestoEase</title>
+            </Helmet>
             <div className="w-full max-w-6xl px-4 py-10 flex flex-col md:flex-row gap-10 bg-base-200/40 backdrop-blur-md rounded-2xl shadow-lg">
                 {/* Left: Animation */}
                 <div className="w-full md:w-1/2 flex justify-center items-center">

@@ -45,8 +45,8 @@ const TopFoods = () => {
     }
 
     return (
-        <section className="py-16 bg-base-300">
-            <div className="container mx-auto px-4">
+        <section className="py-16 bg-base-200">
+            <div className="max-w-11/12 mx-auto px-4">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold mb-4 font-poppins">Top Foods</h2>
                     <p className="text-base-content/70 font-nunito">Discover our most popular dishes</p>

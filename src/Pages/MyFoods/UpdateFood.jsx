@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import axiosInstance from '../../axios/axiosConfig';
+import { Helmet } from 'react-helmet';
 
 const UpdateFood = () => {
     const { id } = useParams();
@@ -161,9 +162,12 @@ const UpdateFood = () => {
     }
 
     return (
-        <div className="py-8 px-4 bg-base-200">
-            <div className="bg-base-100 shadow-lg rounded-lg max-w-3xl mx-auto p-6">
-                <h1 className="text-3xl font-bold text-center mb-8">Update Food Item</h1>
+        <div className="py-8 px-4 sm:px-6 lg:px-8 bg-base-200">
+            <Helmet>
+                <title>{food ? `Update ${food.name} - Restaurant Management` : 'Update Food - Restaurant Management'}</title>
+            </Helmet>
+            <div className="bg-base-100 shadow-lg rounded-lg max-w-3xl mx-auto p-4 sm:p-6">
+                <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Update Food Item</h1>
 
                 {updateSuccess && (
                     <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
@@ -172,9 +176,9 @@ const UpdateFood = () => {
                 )}
 
                 <form onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         {/* Food Name */}
-                        <div>
+                        <div className="md:col-span-2">
                             <label className="block text-sm font-medium text-base-content mb-1">
                                 Food Name
                             </label>
@@ -237,7 +241,7 @@ const UpdateFood = () => {
                         </div>
 
                         {/* Image URL */}
-                        <div>
+                        <div className="md:col-span-2">
                             <label className="block text-sm font-medium text-base-content mb-1">
                                 Image URL
                             </label>
@@ -252,7 +256,7 @@ const UpdateFood = () => {
                         </div>
 
                         {/* Origin */}
-                        <div>
+                        <div className="md:col-span-2">
                             <label className="block text-sm font-medium text-base-content mb-1">
                                 Origin
                             </label>
@@ -284,13 +288,13 @@ const UpdateFood = () => {
                     </div>
 
                     {/* Buttons */}
-                    <div className="mt-6 flex justify-end gap-4">
-                        <Link to="/my-foods" className="btn btn-outline">
+                    <div className="mt-6 flex flex-col sm:flex-row justify-end gap-4">
+                        <Link to="/my-foods" className="btn btn-outline w-full sm:w-auto">
                             Cancel
                         </Link>
                         <button
                             type="submit"
-                            className="btn btn-primary"
+                            className="btn btn-primary w-full sm:w-auto"
                             disabled={submitting}
                         >
                             {submitting ? 'Updating...' : 'Update Food'}
@@ -314,11 +318,11 @@ const UpdateFood = () => {
                         </div>
                         <div className="w-full md:w-2/3">
                             <h4 className="text-xl font-bold">{updatedFood?.name}</h4>
-                            <p className="text-secondary-content">{updatedFood?.category} • {updatedFood?.origin}</p>
+                            <p className="text-base-content">{updatedFood?.category} • {updatedFood?.origin}</p>
                             <p className="font-semibold text-lg text-primary mt-2">
                                 ${updatedFood?.price || 0}
                             </p>
-                            <p className="mt-2 text-sm text-secondary-content line-clamp-3">{updatedFood?.description}</p>
+                            <p className="mt-2 text-sm text-base-content line-clamp-3">{updatedFood?.description}</p>
                             <p className="mt-2">
                                 Quantity: {updatedFood?.quantity || 0}
                             </p>
