@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Create axios instance with default config
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://restaurant-management-server-rust.vercel.app',
     timeout: 10000,
 });
 

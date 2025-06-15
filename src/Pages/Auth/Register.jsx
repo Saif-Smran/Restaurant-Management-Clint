@@ -141,9 +141,13 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-base-200 py-12 px-4">
+        <div
+            className="min-h-screen flex items-center justify-center bg-cover bg-center"
+            style={{ backgroundImage: `url(${registerBg})` }}
+        >
             <Helmet>
-                <title>Register | RestoEase</title>
+                <title>RestoEase - Register | Create Your Account</title>
+                <meta name="description" content="Register to RestoEase and enjoy delicious food delivered to your doorstep. Create your account now!" />
             </Helmet>
             <div className="w-full max-w-6xl px-4 py-10 flex flex-col md:flex-row gap-10 bg-base-200/40 backdrop-blur-md rounded-2xl shadow-lg">
                 {/* Left: Animation */}
@@ -165,7 +169,7 @@ const Register = () => {
                         <span className="font-medium">Google</span>
                     </button>
 
-                    <div className="my-6 text-center text-secondary-content font-nunito">or use credentials</div>
+                    <div className="my-6 text-center text-base-content font-nunito">or use credentials</div>
 
                     <form onSubmit={handleRegister}>
                         <div className="space-y-4">

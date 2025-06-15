@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
-import { FaEdit, FaEye, FaTrash, FaPlus } from 'react-icons/fa';
+import { FaEdit, FaEye, FaTrash, FaPlus, FaUtensils, FaHamburger, FaPizzaSlice, FaIceCream, FaCoffee, FaGlassWhiskey } from 'react-icons/fa';
 import axiosInstance from '../../axios/axiosConfig';
 import Swal from 'sweetalert2';
 import { Helmet } from 'react-helmet';
@@ -11,7 +11,25 @@ const MyFoods = () => {
     const [foods, setFoods] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedFood, setSelectedFood] = useState(null);
     
+    const getCategoryIcon = (category) => {
+        switch (category.toLowerCase()) {
+            case 'main course':
+                return <FaUtensils className="text-primary" />;
+            case 'burger':
+                return <FaHamburger className="text-primary" />;
+            case 'pizza':
+                return <FaPizzaSlice className="text-primary" />;
+            case 'dessert':
+                return <FaIceCream className="text-primary" />;
+            case 'beverage':
+                return <FaCoffee className="text-primary" />;
+            default:
+                return <FaGlassWhiskey className="text-primary" />;
+        }
+    };
+
     useEffect(() => {
         const fetchMyFoods = async () => {
             if (!user?.email) return;
@@ -78,6 +96,14 @@ const MyFoods = () => {
         }
     };
 
+    const handleView = (food) => {
+        setSelectedFood(food);
+        const modal = document.getElementById('view_modal');
+        if (modal) {
+            modal.showModal();
+        }
+    };
+
     return (
         <div className="min-h-screen bg-base-200 py-8 sm:py-12">
             <Helmet>
@@ -107,48 +133,110 @@ const MyFoods = () => {
                         </Link>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                        {foods.map(food => (
-                            <div key={food._id} className="bg-base-100 rounded-lg shadow-md overflow-hidden">
-                                <div className="relative">
-                                    <img
-                                        src={food.image}
-                                        alt={food.name}
-                                        className="w-full h-48 object-cover"
-                                    />
-                                    <div className="absolute top-4 right-4 flex gap-2">
-                                        <Link
-                                            to={`/update-food/${food._id}`}
-                                            className="btn btn-sm btn-circle btn-primary"
-                                            title="Edit"
-                                        >
-                                            <FaEdit />
-                                        </Link>
-                                        <button
-                                            onClick={() => handleDelete(food._id)}
-                                            className="btn btn-sm btn-circle btn-error"
-                                            title="Delete"
-                                        >
-                                            <FaTrash />
-                                        </button>
-                                    </div>
-                                </div>
-                                <div className="p-4 sm:p-6">
-                                    <h3 className="text-xl font-bold mb-2">{food.name}</h3>
-                                    <p className="text-base-content/70 mb-2">{food.category}</p>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-lg font-semibold text-primary">${food.price}</span>
-                                        <span className="text-sm text-base-content/70">Quantity: {food.quantity}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                    <div className="overflow-x-auto bg-base-100 rounded-lg shadow-md">
+                        <table className="table w-full">
+                            <thead>
+                                <tr>
+                                    <th className='text-center'>Image</th>
+                                    <th className='text-center'>Name</th>
+                                    <th className='text-center'>Category</th>
+                                    <th className='text-center'>Price</th>
+                                    <th className='text-center'>Quantity</th>
+                                    <th className='text-center'>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {foods.map(food => (
+                                    <tr key={food._id}>
+                                        <td>
+                                            <div className="avatar">
+                                                <div className="w-16 h-16 rounded text-center">
+                                                    <img src={food.image} alt={food.name} />
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="flex items-center gap-2 justify-center">
+                                                {getCategoryIcon(food.category)}
+                                                <span className="font-medium">{food.name}</span>
+                                            </div>
+                                        </td>
+                                        <td className='text-center'>{food.category}</td>
+                                        <td className='text-center'>${food.price}</td>
+                                        <td className='text-center'>{food.quantity}</td>
+                                        <td>
+                                            <div className="flex gap-2 justify-center items-center">
+                                                <button
+                                                    onClick={() => handleView(food)}
+                                                    className="btn btn-sm btn-info"
+                                                    title="View"
+                                                >
+                                                    <FaEye /> View
+                                                </button>
+                                                <Link
+                                                    to={`/update-food/${food._id}`}
+                                                    className="btn btn-sm btn-primary"
+                                                    title="Edit"
+                                                >
+                                                    <FaEdit /> Update
+                                                </Link>
+                                                <button
+                                                    onClick={() => handleDelete(food._id)}
+                                                    className="btn btn-sm btn-error"
+                                                    title="Delete"
+                                                >
+                                                    <FaTrash /> Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 )}
             </div>
+
+            {/* View Modal */}
+            <dialog id="view_modal" className="modal">
+                <div className="modal-box max-w-3xl">
+                    {selectedFood && (
+                        <div className="flex flex-col md:flex-row gap-6">
+                            <div className="md:w-1/2">
+                                <img 
+                                    src={selectedFood.image} 
+                                    alt={selectedFood.name} 
+                                    className="w-full h-64 object-cover rounded-lg"
+                                />
+                            </div>
+                            <div className="md:w-1/2">
+                                <div className="flex items-center gap-2 mb-4">
+                                    {getCategoryIcon(selectedFood.category)}
+                                    <h3 className="text-2xl font-bold">{selectedFood.name}</h3>
+                                </div>
+                                <div className="space-y-3">
+                                    <p><span className="font-semibold">Category:</span> {selectedFood.category}</p>
+                                    <p><span className="font-semibold">Price:</span> ${selectedFood.price}</p>
+                                    <p><span className="font-semibold">Quantity:</span> {selectedFood.quantity}</p>
+                                    <p><span className="font-semibold">Description:</span> {selectedFood.description}</p>
+                                    <p><span className="font-semibold">Origin:</span> {selectedFood.origin}</p>
+                                    <p><span className="font-semibold">Added By:</span> {selectedFood.addedBy}</p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    <div className="modal-action">
+                        <form method="dialog">
+                            <button className="btn">Close</button>
+                        </form>
+                    </div>
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
         </div>
     );
 };
-    
 
 export default MyFoods;

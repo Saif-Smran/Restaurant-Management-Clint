@@ -129,57 +129,69 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-base-200 py-12 px-4">
+        <div
+            className="min-h-screen flex items-center justify-center bg-cover bg-center"
+            style={{ backgroundImage: `url(${loginBg})` }}
+        >
             <Helmet>
                 <title>Login | RestoEase</title>
+                <meta name="description" content="Login to RestoEase and continue enjoying delicious food delivered to your doorstep." />
             </Helmet>
-            <div className="max-w-md w-full space-y-8 bg-base-100 p-8 rounded-lg shadow-lg">
-                <div className="text-center mb-4">
-                    <h2 className="text-2xl font-bold text-base-content font-poppins">Login with</h2>
+            <div className="w-full max-w-6xl px-4 py-10 flex flex-col md:flex-row gap-10 bg-base-200/40 backdrop-blur-md rounded-2xl shadow-lg">
+                {/* Left: Animation */}
+                <div className="w-full md:w-1/2 flex justify-center items-center">
+                    <Lottie animationData={loginAnimation} loop className="w-full max-w-sm" />
                 </div>
 
-                <button
-                    onClick={handleGoogleLogin}
-                    className="w-full flex items-center justify-center gap-2 btn bg-white text-black border-[#e5e5e5] font-quicksand"
-                >
-                    <FcGoogle className="text-xl" />
-                    <span className="font-medium">Google</span>
-                </button>
-
-                <div className="my-6 text-center text-secondary-content font-nunito">or use credentials</div>
-
-                <form onSubmit={handleLogin}>
-                    <div className="space-y-4">
-                        <input
-                            name="email"
-                            type="email"
-                            required
-                            placeholder="Email"
-                            className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-base-content focus:outline-none shadow font-nunito"
-                        />
-                        <input
-                            name="password"
-                            type="password"
-                            required
-                            placeholder="Password"
-                            className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-base-content focus:outline-none shadow font-nunito"
-                        />
+                {/* Right: Form */}
+                <div className="w-full md:w-1/2 p-6">
+                    <div className="text-center mb-4">
+                        <h2 className="text-2xl font-bold text-base-content font-poppins">Login with</h2>
                     </div>
 
-                    {error && <p className="text-red-600 text-center mt-2 font-poppins">{error}</p>}
-
                     <button
-                        type="submit"
-                        className="mt-6 w-full bg-primary text-white py-2 rounded-md font-semibold hover:bg-primary-dark transition duration-200 font-quicksand"
+                        onClick={handleGoogleLogin}
+                        className="w-full flex items-center justify-center gap-2 btn bg-white text-black border-[#e5e5e5] font-quicksand"
                     >
-                        Sign In
+                        <FcGoogle className="text-xl" />
+                        <span className="font-medium">Google</span>
                     </button>
-                </form>
 
-                <div className="text-center mt-4">
-                    <Link to="/auth/register" className="text-base font-bold text-white hover:text-gray-200 font-nunito">
-                        Don't have an account? <span className="underline">Register</span>
-                    </Link>
+                    <div className="my-6 text-center text-base-content font-nunito">or use credentials</div>
+
+                    <form onSubmit={handleLogin}>
+                        <div className="space-y-4">
+                            <input
+                                name="email"
+                                type="email"
+                                required
+                                placeholder="Email"
+                                className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-base-content focus:outline-none shadow font-nunito"
+                            />
+                            <input
+                                name="password"
+                                type="password"
+                                required
+                                placeholder="Password"
+                                className="w-full px-4 py-2 rounded-md bg-base-200/50 backdrop-blur-sm placeholder-gray-400 text-base-content focus:outline-none shadow font-nunito"
+                            />
+                        </div>
+
+                        {error && <p className="text-red-600 text-center mt-2 font-poppins">{error}</p>}
+
+                        <button
+                            type="submit"
+                            className="mt-6 w-full bg-primary text-white py-2 rounded-md font-semibold hover:bg-primary-dark transition duration-200 font-quicksand"
+                        >
+                            Sign In
+                        </button>
+                    </form>
+
+                    <div className="text-center mt-4">
+                        <Link to="/auth/register" className="text-base font-bold text-white hover:text-gray-200 font-nunito">
+                            Don't have an account? <span className="underline">Register</span>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
