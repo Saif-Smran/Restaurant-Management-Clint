@@ -4,12 +4,24 @@ import axiosInstance from '../../axios/axiosConfig';
 import FoodCard from '../../Components/FoodCard';
 import { FaSearch } from 'react-icons/fa';
 
+const SORT_OPTIONS = [
+    { value: '', label: 'Default' },
+    { value: 'price-asc', label: 'Price: Low to High' },
+    { value: 'price-desc', label: 'Price: High to Low' },
+    { value: 'name-asc', label: 'Name: A-Z' },
+    { value: 'name-desc', label: 'Name: Z-A' },
+    { value: 'quantity-asc', label: 'Quantity: Low to High' },
+    { value: 'quantity-desc', label: 'Quantity: High to Low' },
+    { value: 'popular', label: 'Most Popular' },
+];
+
 const AllFoods = () => {
     const [foods, setFoods] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredFoods, setFilteredFoods] = useState([]);
+    const [sortOption, setSortOption] = useState('');
 
     useEffect(() => {
         const fetchFoods = async () => {
@@ -28,11 +40,40 @@ const AllFoods = () => {
     }, []);
 
     useEffect(() => {
-        const results = foods.filter(food =>
+        let results = foods.filter(food =>
             food.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
+        // Sorting logic
+        if (sortOption) {
+            results = [...results]; // copy array
+            switch (sortOption) {
+                case 'price-asc':
+                    results.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-desc':
+                    results.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name-asc':
+                    results.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'name-desc':
+                    results.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                case 'quantity-asc':
+                    results.sort((a, b) => a.quantity - b.quantity);
+                    break;
+                case 'quantity-desc':
+                    results.sort((a, b) => b.quantity - a.quantity);
+                    break;
+                case 'popular':
+                    results.sort((a, b) => b.purchaseCount - a.purchaseCount);
+                    break;
+                default:
+                    break;
+            }
+        }
         setFilteredFoods(results);
-    }, [searchTerm, foods]);
+    }, [searchTerm, foods, sortOption]);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -88,18 +129,32 @@ const AllFoods = () => {
 
             {/* Search Section */}
             <div className="container mx-auto px-4 py-8 sm:py-12">
-                <form onSubmit={handleSearch} className="max-w-2xl mx-auto mb-8 sm:mb-12">
-                    <div className="relative">
-                        <input
-                            type="text"
-                            placeholder="Search for foods..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full px-4 py-3 pl-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                        />
-                        <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                {/* Sorting Dropdown */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between max-w-2xl mx-auto mb-6 gap-4">
+                    <form onSubmit={handleSearch} className="flex-1">
+                        <div className="relative">
+                            <input
+                                type="text"
+                                placeholder="Search for foods..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full px-4 py-3 pl-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                            />
+                            <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                        </div>
+                    </form>
+                    <div className="w-full sm:w-64">
+                        <select
+                            value={sortOption}
+                            onChange={e => setSortOption(e.target.value)}
+                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                        >
+                            {SORT_OPTIONS.map(opt => (
+                                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                            ))}
+                        </select>
                     </div>
-                </form>
+                </div>
 
                 {/* Food Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
