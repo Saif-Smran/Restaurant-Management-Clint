@@ -15,7 +15,7 @@ const TopFoods = () => {
                 // Sort by purchaseCount and take top 6
                 const sortedFoods = data
                     .sort((a, b) => (b.purchaseCount || 0) - (a.purchaseCount || 0))
-                    .slice(0, 6);
+                    .slice(0, 8);
                 setFoods(sortedFoods);
                 setLoading(false);
             } catch (err) {
@@ -52,7 +52,7 @@ const TopFoods = () => {
                     <p className="text-base-content/70 font-nunito">Discover our most popular dishes</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                     {foods.map(food => (
                         <FoodCard key={food._id} food={food} />
                     ))}
