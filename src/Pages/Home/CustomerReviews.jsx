@@ -4,21 +4,21 @@ const CustomerReviews = () => {
     const reviews = [
         {
             name: "Sarah Johnson",
-            image: "https://i.ibb.co/8X7dBZ4/reviewer1.jpg",
+            image: "https://i.pravatar.cc/300/1",
             rating: 5,
             review: "The food quality and service are exceptional! Every dish I've tried has been a delightful experience. The flavors are authentic and the portions are generous.",
             position: "Food Blogger"
         },
         {
             name: "Michael Chen",
-            image: "https://i.ibb.co/VqFkwx9/reviewer2.jpg",
+            image: "https://i.pravatar.cc/300/2",
             rating: 5,
             review: "I'm impressed by the consistency in quality. The delivery is always on time, and the food arrives hot and fresh. Their customer service is outstanding!",
             position: "Regular Customer"
         },
         {
             name: "Emily Rodriguez",
-            image: "https://i.ibb.co/Ry8vxqT/reviewer3.jpg",
+            image: "https://i.pravatar.cc/300/3",
             rating: 5,
             review: "The variety of dishes and the attention to dietary preferences make this my go-to restaurant. The online ordering system is user-friendly and efficient.",
             position: "Food Critic"
@@ -37,7 +37,7 @@ const CustomerReviews = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {reviews.map((review, index) => (
-                        <div 
+                        <div
                             key={index}
                             className="bg-base-100 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
                         >
@@ -53,8 +53,8 @@ const CustomerReviews = () => {
                                 ))}
                             </div>
                             <div className="text-center">
-                                <img 
-                                    src={review.image} 
+                                <img
+                                    src={review.image}
                                     alt={review.name}
                                     className="w-16 h-16 rounded-full mx-auto mb-3 object-cover"
                                 />
