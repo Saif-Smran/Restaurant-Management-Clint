@@ -16,6 +16,8 @@ import UpdateFood from '../Pages/MyFoods/UpdateFood';
 import MyOrders from '../Pages/MyOrders/MyOrders';
 import Unauthorized from '../Pages/ErrorPages/Unauthorized';
 import Forbidden from '../Pages/ErrorPages/Forbidden';
+import Dashboard from '../Pages/Dashboard/Dashboard';
+import DashboardLayout from '../Layouts/DashboardLayout';
 
 const router = createBrowserRouter([
     {
@@ -48,6 +50,36 @@ const router = createBrowserRouter([
                 element: <Gallery />,
             },
             {
+                path: 'dashboard',
+                element: (
+                    <PrivateRoute>
+                        <DashboardLayout />
+                    </PrivateRoute>
+                ),
+                children: [
+                    {
+                        index: true,
+                        element: <Dashboard />
+                    },
+                    {
+                        path: 'add-food',
+                        element: <AddFood />
+                    },
+                    {
+                        path: 'my-foods',
+                        element: <MyFoods />
+                    },
+                    {
+                        path: 'update-food/:id',
+                        element: <UpdateFood />
+                    },
+                    {
+                        path: 'my-orders',
+                        element: <MyOrders />
+                    }
+                ]
+            },
+            {
                 path: 'food/purchase/:id',
                 element: (
                     <PrivateRoute>
@@ -55,38 +87,7 @@ const router = createBrowserRouter([
                     </PrivateRoute>
                 ),
             },
-            {
-                path: 'add-food',
-                element: (
-                    <PrivateRoute>
-                        <AddFood />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: 'my-foods',
-                element: (
-                    <PrivateRoute>
-                        <MyFoods />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: 'update-food/:id',
-                element: (
-                    <PrivateRoute>
-                        <UpdateFood />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: 'my-orders',
-                element: (
-                    <PrivateRoute>
-                        <MyOrders />
-                    </PrivateRoute>
-                ),
-            },
+            
             {
                 path: 'unauthorized',
                 element: <Unauthorized />,

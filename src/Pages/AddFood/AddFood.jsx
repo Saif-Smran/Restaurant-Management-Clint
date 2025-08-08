@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import Lottie from 'lottie-react';
 import Swal from 'sweetalert2';
 import axiosInstance from '../../axios/axiosConfig';
@@ -52,7 +51,7 @@ const AddFood = () => {
                     showConfirmButton: false
                 });
 
-                navigate('/my-foods');
+                navigate('/dashboard/my-foods');
             }
         } catch (err) {
             console.error('Error adding food:', err);

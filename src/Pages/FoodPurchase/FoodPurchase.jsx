@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import toast from 'react-hot-toast';
-import axios from 'axios';
 import Lottie from 'lottie-react';
 import foodAnimation from '../../assets/animations/food-loading.json';
 import orderAnimation from '../../assets/animations/order-success.json';
@@ -16,7 +15,7 @@ const FoodPurchase = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [foodDetails, setFoodDetails] = useState(null);
-    const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
+    const [showSuccessAnimation] = useState(false);
 
     const [formData, setFormData] = useState({
         quantity: 1,
@@ -33,7 +32,7 @@ const FoodPurchase = () => {
                     foodName: data.name,
                     price: data.price
                 }));
-            } catch (err) {
+            } catch {
                 setError('Failed to fetch food details');
                 toast.error('Failed to load food information');
             } finally {
@@ -123,7 +122,7 @@ const FoodPurchase = () => {
                 showConfirmButton: false
             });
 
-            navigate('/my-orders');
+            navigate('/dashboard/my-orders');
         } catch (err) {
             console.error('Error placing order:', err);
             Swal.fire({

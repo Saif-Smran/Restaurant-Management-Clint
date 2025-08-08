@@ -10,13 +10,15 @@ import {
   FaSignInAlt,
   FaUserCog,
   FaSun,
-  FaMoon
+  FaMoon,
+  FaTachometerAlt
 } from 'react-icons/fa';
 import { AuthContext } from '../Provider/AuthProvider';
 import { useTheme } from '../Provider/ThemeProvider';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion as Motion } from 'framer-motion';
 import Logo from '../assets/Logo.png';
 import axiosInstance from '../axios/axiosConfig';
+import { useCallback } from 'react';
 
 const navbarLinks = [
   { to: '/', label: 'Home', Icon: HiHome },
@@ -32,7 +34,7 @@ export default function Navbar() {
   const [userData, setUserData] = useState(null);
   const dropdownRef = useRef();
 
-  const fetchUserData = async (email) => {
+  const fetchUserData = useCallback(async (email) => {
     try {
       const token = await user?.getIdToken();
       const { data } = await axiosInstance.get(`/users/${email}`, {
@@ -45,7 +47,7 @@ export default function Navbar() {
       console.error('Error fetching user data:', err);
       return null;
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     if (user?.email) {
@@ -53,7 +55,7 @@ export default function Navbar() {
     } else {
       setUserData(null);
     }
-  }, [user]);
+  }, [user, fetchUserData]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -94,9 +96,9 @@ export default function Navbar() {
 
       {/* Desktop nav */}
       <div className="hidden md:flex items-center space-x-8 font-medium font-quicksand">
-        {navbarLinks.map(({ to, label, Icon }) => (
+    {navbarLinks.map(({ to, label, Icon: IconCmp }) => (
           <NavLink key={to} to={to} className={navLinkClass}>
-            <Icon size={18} />
+      {IconCmp ? <IconCmp size={18} /> : null}
             {label}
           </NavLink>
         ))}
@@ -158,9 +160,10 @@ export default function Navbar() {
                       </span>
                     )}
                   </div>
-                  <NavLink to="/my-foods" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-base-300">My Foods</NavLink>
-                  <NavLink to="/add-food" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-base-300">Add Food</NavLink>
-                  <NavLink to="/my-orders" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-base-300">My Orders</NavLink>
+                  <NavLink to="/dashboard" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-base-300">Dashboard</NavLink>
+                  <NavLink to="/dashboard/my-foods" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-base-300">My Foods</NavLink>
+                  <NavLink to="/dashboard/add-food" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-base-300">Add Food</NavLink>
+                  <NavLink to="/dashboard/my-orders" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-base-300">My Orders</NavLink>
                   {userData?.role === 'admin' && (
                     <NavLink to="/admin/dashboard" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
                       Admin Dashboard
@@ -182,9 +185,9 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      <AnimatePresence>
+    <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
+      <Motion.div
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
@@ -209,14 +212,14 @@ export default function Navbar() {
               )}
             </button>
 
-            {navbarLinks.map(({ to, label, Icon }) => (
+      {navbarLinks.map(({ to, label, Icon: IconCmp }) => (
               <NavLink
                 key={to}
                 to={to}
                 className={navLinkClass}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Icon size={18} />
+        {IconCmp ? <IconCmp size={18} /> : null}
                 {label}
               </NavLink>
             ))}
@@ -241,9 +244,10 @@ export default function Navbar() {
                         Admin
                       </span>
                     )}
-                    <NavLink to="/my-foods" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary dark:text-base-content">My Foods</NavLink>
-                    <NavLink to="/add-food" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary dark:text-base-content">Add Food</NavLink>
-                    <NavLink to="/my-orders" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary dark:text-base-content">My Orders</NavLink>
+                    <NavLink to="/dashboard" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary dark:text-base-content">Dashboard</NavLink>
+                    <NavLink to="/dashboard/my-foods" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary dark:text-base-content">My Foods</NavLink>
+                    <NavLink to="/dashboard/add-food" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary dark:text-base-content">Add Food</NavLink>
+                    <NavLink to="/dashboard/my-orders" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary dark:text-base-content">My Orders</NavLink>
                     {userData?.role === 'admin' && (
                       <NavLink to="/admin/dashboard" onClick={() => { setMobileMenuOpen(false); setDropdownOpen(false); }} className="block hover:text-primary dark:text-dark-text">
                         Admin Dashboard
@@ -264,7 +268,7 @@ export default function Navbar() {
                 <FaSignInAlt /> Login
               </NavLink>
             )}
-          </motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
     </nav>

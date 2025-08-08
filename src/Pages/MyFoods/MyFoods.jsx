@@ -112,7 +112,7 @@ const MyFoods = () => {
             <div className="container mx-auto px-4">
                 <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
                     <h1 className="text-2xl sm:text-3xl font-bold text-center sm:text-left mb-4 sm:mb-0">My Foods</h1>
-                    <Link to="/add-food" className="btn btn-primary flex items-center gap-2 w-full sm:w-auto">
+                    <Link to="/dashboard/add-food" className="btn btn-primary flex items-center gap-2 w-full sm:w-auto">
                         <FaPlus /> Add New Food
                     </Link>
                 </div>
@@ -128,7 +128,7 @@ const MyFoods = () => {
                 ) : foods.length === 0 ? (
                     <div className="text-center py-12 bg-base-100 rounded-lg shadow-md">
                         <p className="text-xl text-base-content/70 mb-4">You haven't added any foods yet.</p>
-                        <Link to="/add-food" className="btn btn-primary">
+                        <Link to="/dashboard/add-food" className="btn btn-primary">
                             Add Your First Food
                         </Link>
                     </div>
@@ -174,7 +174,7 @@ const MyFoods = () => {
                                                     <FaEye /> View
                                                 </button>
                                                 <Link
-                                                    to={`/update-food/${food._id}`}
+                                                    to={`/dashboard/update-food/${food._id}`}
                                                     className="btn btn-sm btn-primary"
                                                     title="Edit"
                                                 >

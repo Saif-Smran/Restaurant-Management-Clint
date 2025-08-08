@@ -116,7 +116,7 @@ const UpdateFood = () => {
             if (response.status === 200) {
                 setUpdateSuccess(true);
                 setTimeout(() => {
-                    navigate('/my-foods');
+                    navigate('/dashboard/my-foods');
                 }, 2000);
             }
         } catch (err) {
@@ -141,7 +141,7 @@ const UpdateFood = () => {
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                     <p>{error}</p>
                 </div>
-                <Link to="/my-foods" className="btn btn-primary mt-4">
+                <Link to="/dashboard/my-foods" className="btn btn-primary mt-4">
                     Back to My Foods
                 </Link>
             </div>
@@ -154,7 +154,7 @@ const UpdateFood = () => {
                 <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
                     <p>Food item not found</p>
                 </div>
-                <Link to="/my-foods" className="btn btn-primary mt-4">
+                <Link to="/dashboard/my-foods" className="btn btn-primary mt-4">
                     Back to My Foods
                 </Link>
             </div>
@@ -289,7 +289,7 @@ const UpdateFood = () => {
 
                     {/* Buttons */}
                     <div className="mt-6 flex flex-col sm:flex-row justify-end gap-4">
-                        <Link to="/my-foods" className="btn btn-outline w-full sm:w-auto">
+                        <Link to="/dashboard/my-foods" className="btn btn-outline w-full sm:w-auto">
                             Cancel
                         </Link>
                         <button
