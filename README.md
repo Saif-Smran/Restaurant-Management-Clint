@@ -1,13 +1,13 @@
-# RestoEase - Restaurant Management System
+# RestoEase - Restaurant Management Client
 
 🔗 **Live Site:** [https://resturent-management-clint.web.app](https://resturent-management-clint.web.app)
 
 
-RestoEase is a modern web application for restaurant management and food delivery services. Built with React and Vite, it offers a seamless experience for both customers and restaurant administrators.
+RestoEase is a modern web application for restaurant management and food ordering. This package contains the client (React + Vite). It provides a seamless experience for customers and a personal dashboard for users to manage their foods and orders.
 
 ## 🌟 Features
 
-### For Customers
+### For Customers (Users)
 - Browse and search through available food items
 - View detailed food information including price, description, and availability
 - Place food orders with quantity selection
@@ -16,12 +16,11 @@ RestoEase is a modern web application for restaurant management and food deliver
 - Responsive design for all devices
 - Dark/Light mode support
 
-### For Restaurant Administrators
+### User Dashboard
+- Overview with stats (Total Foods, Total Orders, Revenue, Average Order Value)
 - Add new food items with images and descriptions
-- Manage existing food inventory
-- Track order history and status
-- View customer information
-- Update food availability and prices
+- Manage existing food inventory (update/delete)
+- Track personal orders
 
 ### Technical Features
 - Modern UI with Tailwind CSS and DaisyUI
@@ -37,7 +36,7 @@ RestoEase is a modern web application for restaurant management and food deliver
 
 - **Frontend Framework:** React.js
 - **Build Tool:** Vite
-- **Styling:** Tailwind CSS, DaisyUI
+- **Styling:** Tailwind CSS, DaisyUI (theme tokens like bg-base-100/200, text-base-content)
 - **Authentication:** Firebase
 - **State Management:** React Context API
 - **Routing:** React Router DOM
@@ -52,40 +51,41 @@ RestoEase is a modern web application for restaurant management and food deliver
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
-- Firebase account
+- Node.js (v18+ recommended)
+- npm
+- Firebase project (Web app)
 
 ### Installation
 
 1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/restaurant-management-clint.git
-cd restaurant-management-clint
+```pwsh
+git clone https://github.com/Saif-Smran/Restaurant-Management-Clint.git
+cd Restaurant-Management-Clint
 ```
 
 2. Install dependencies:
-```bash
+```pwsh
 npm install
-# or
-yarn install
 ```
 
 3. Create a `.env` file in the root directory and add your Firebase configuration:
 ```env
-VITE_FIREBASE_API_KEY=your_api_key
-VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
-VITE_FIREBASE_PROJECT_ID=your_project_id
-VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
-VITE_FIREBASE_APP_ID=your_app_id
+VITE_apiKey=your_api_key
+VITE_authDomain=your_auth_domain
+VITE_projectId=your_project_id
+VITE_storageBucket=your_storage_bucket
+VITE_messagingSenderId=your_messaging_sender_id
+VITE_appId=your_app_id
+```
+Optional: If you deploy the server separately, you can override the axios base URL by setting:
+```env
+# default is https://restaurant-management-server-rust.vercel.app
+VITE_API_BASE_URL=https://your-server-url
 ```
 
 4. Start the development server:
-```bash
+```pwsh
 npm run dev
-# or
-yarn dev
 ```
 
 ## 📁 Project Structure
@@ -95,7 +95,7 @@ src/
 ├── assets/          # Static assets (images, animations)
 ├── Components/      # Reusable components
 ├── Layouts/         # Layout components
-├── Pages/          # Page components
+├── Pages/           # Page components
 ├── Provider/       # Context providers
 ├── Routes/         # Route configurations
 ├── axios/          # API configuration
@@ -109,10 +109,26 @@ src/
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 
-## 🎨 Customization
+## 🧭 Routing
 
-### Themes
-The application supports both light and dark themes. The theme preference is saved in localStorage and can be toggled using the theme switch in the navigation bar.
+- Public pages under `/` use `MainLayout`.
+- User dashboard lives under `/dashboard` and uses `DashboardLayout` with a persistent left sidebar.
+  - `/dashboard` → Overview
+  - `/dashboard/add-food` → Add Food
+  - `/dashboard/my-foods` → Manage Foods
+  - `/dashboard/my-orders` → My Orders
+
+Protected routes use Firebase auth; unauthorized users are redirected to `/auth/login`.
+
+## 🎨 Theming
+
+The app uses DaisyUI theme tokens for consistent light/dark mode.
+
+- Backgrounds: `bg-base-100`, `bg-base-200`, `bg-base-300`
+- Text: `text-base-content`, `text-base-content/70`
+- Accents: `text-primary`, `text-info`, `text-success`, `text-accent`, `text-error`
+
+Toggle theme using the switch in the navbar.
 
 ### Fonts
 The application uses multiple fonts for different purposes:
