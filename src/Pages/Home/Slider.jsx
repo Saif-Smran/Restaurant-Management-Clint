@@ -21,7 +21,7 @@ const Slider = () => {
                 setSlides(response.data);
                 setLoading(false);
             } catch (err) {
-                setError('Failed to load slider data');
+                setError('Failed to load slider data', err);
                 setLoading(false);
             }
         };
@@ -42,8 +42,8 @@ const Slider = () => {
             <div className="w-full h-[80vh] flex items-center justify-center bg-gray-100">
                 <div className="text-center text-red-600">
                     <p className="text-xl font-semibold font-poppins">{error}</p>
-                    <button 
-                        onClick={() => window.location.reload()} 
+                    <button
+                        onClick={() => window.location.reload()}
                         className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark font-quicksand"
                     >
                         Retry
